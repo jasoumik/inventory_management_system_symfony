@@ -36,15 +36,18 @@ class StockInRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?StockIn
+
+    public function getQueryForCSV()
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('s.date','product.name','productType.type')
+            ->leftJoin('s.product','product')
+            ->leftJoin('product.productType','productType')
+//            ->andWhere('s.exampleField = :val')
+//            ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
+
 }
