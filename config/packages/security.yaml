@@ -38,6 +38,9 @@ security:
              - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
              - { path: ^/index, roles: ROLE_USER }
              - { path: ^/dashbord, roles: ROLE_USER }
-
+             - { path: ^/product, roles: ROLE_USER }
+             - { path: ^/product/type, roles: ROLE_USER }
+             - { path: ^/download-csv, roles: ROLE_USER }
+             - { path: ^/stockIn, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

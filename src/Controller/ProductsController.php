@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/", name="product_list")
+     * @Route("/products", name="product_list")
      * @Method ({"GET"})
      */
 

@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
                 <th>Date</th>
                 <th>Quantity</th>
                 <th>actions</th>
@@ -18,6 +19,7 @@
         {% for stock_in in stock_ins %}
             <tr>
                 <td>{{ stock_in.id }}</td>
+                <td>{{ stock_in.product.name }}</td>
                 <td>{{ stock_in.date ? stock_in.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ stock_in.quantity }}</td>
                 <td>
