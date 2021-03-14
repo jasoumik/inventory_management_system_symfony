@@ -6,6 +6,7 @@ use App\Entity\StockIn;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,26 +18,26 @@ class CsvDownloadFormType extends AbstractType
         $builder
             ->add(
                 'date',
-                DateTimeType::class,
+                DateType::class,
                 [
-                    'date_label'=>'Select Date',
+                    'placeholder' => 'Select Date',
+                    'widget' => 'single_text',
                 ]
             )
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'label'=>'Download CSV',
+                    'label' => 'Download CSV',
                 ]
-            )
-        ;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => StockIn::class,
-            'date' => new \DateTime(),
+
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\StockIn;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 //use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
@@ -38,20 +39,16 @@ class StockInRepository extends ServiceEntityRepository
     */
 
 
-    public function getQueryForCSV( $queryDate)
+    public function getQueryForCSV($queryDate)
     {
-//          $newDate = new \DateTime($queryDate);
-//        $queryDate = $newDate->format('d/m/Y');
         return $this->createQueryBuilder('s')
-            ->select('product.name','productType.type','s.quantity')
-            ->leftJoin('s.product','product')
-            ->leftJoin('product.productType','productType')
+            ->select('product.name', 'productType.type', 's.quantity','s.date')
+            ->leftJoin('s.product', 'product')
+            ->leftJoin('product.productType', 'productType')
             ->andWhere('s.date = :date')
             ->setParameter('date', $queryDate)
             ->getQuery()
-            ->getResult()
-
-        ;
+            ->getResult();
     }
 
 }
