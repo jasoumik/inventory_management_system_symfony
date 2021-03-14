@@ -47,4 +47,18 @@ class StockInRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getProducts()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('product.name','productType.type','s.quantity','s.date')
+            ->leftJoin('s.product','product')
+            ->leftJoin('product.productType','productType')
+//            ->andWhere('s.date = :date')
+//            ->setParameter('date', $queryDate)
+            ->getQuery()
+            ->getResult()
+
+            ;
+    }
 }
