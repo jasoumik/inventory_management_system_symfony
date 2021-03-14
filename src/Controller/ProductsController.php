@@ -14,44 +14,57 @@ use App\Repository\StockInRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+* @Route("product-list", name="product_list_")
+*/
 
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/", name="product_list")
-     * @Method ({"GET"})
+     * @Route("", name="products")
      */
 
-    public function stock(StockInRepository $stockInRepository){
+    public function index()
+    {
+        $data = new StockIn();
+        $formView = $this->createForm(
+            StockType::class, $data,
+            [
+                'action' => $this->generateUrl('product_list_view')
+            ])->createView();
 
-        $products = $this->getDoctrine()
-                        ->getRepository(StockIn::class)
-                        ->getProducts();
+        return $this->render(
+            'products/index.html.twig',
+            [
+                'form' => $formView
+            ]);
 
-        return $this->render('products/index.html.twig',
-            array('products'=>$products));
     }
 
     /**
-     * @Route("/stocks", name="stock_list")
-     * @Method ({GET})
+     * @Route("/stocks", name="view" methods={"POST"})
      */
+    public function stockView(Request $request, StockInRepository $stockInRepository)
+    {
+        $stockIn = new StockIn();
+        $form = $this->createForm(StockType::class, $stockIn);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && !$form->isValid()) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+        $date = $stockIn->getDate();
+        $data = $this->getDoctrine()->getRepository(StockIn::class)->getProducts($date);
 
-//    public function stockView(Request $request){
-//        $stocks = new StockIn();
-//        $form = $this->createForm(StockType::class, $stocks);
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted()) {
-//            if (!$form->isValid()) {
-//                throw new FormValidationException($form);
-//            }
-//            $em = $this->get('doctrine')->getManager();
-//            $em->persist($stocks);
-//            $em->flush();
-//        }
-//    }
+        return $this->render('products/index.html.twig',
+           array('products' => $data));
+
+
+    }
+
 
 
 }
