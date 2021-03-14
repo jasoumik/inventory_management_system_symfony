@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockIn{% endblock %}
+
+{% block body %}
+    <h1>StockIn</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ stock_in.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ stock_in.date ? stock_in.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ stock_in.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('stock_in_index') }}">Back to list</a>
+
+    <a href="{{ path('stock_in_edit', {'id': stock_in.id}) }}">edit</a>
+
+    {{ include('stock_in/_delete_form.html.twig') }}
+{% endblock %}
