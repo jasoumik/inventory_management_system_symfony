@@ -39,7 +39,7 @@ class DownloadCsvController extends AbstractController
             ['action' => $this->generateUrl('download_csv_download')]
         );
         return $this->render('download_csv/index.html.twig', [
-            'controller_name' => 'DownloadCsvController',
+
             'form' => $form->createView()
         ]);
     }
@@ -50,7 +50,7 @@ class DownloadCsvController extends AbstractController
         $header = ['Name', 'Type', 'Quantity', 'Date'];
         fputcsv($fp, $header, ',');
         foreach ($data as $row) {
-            $row['date']=$row['date']->format('d-m-Y');
+           // $row['date']=$row['date']->format('d-m-Y');
             fputcsv($fp, $row, ',');
         }
         $response = new Response();
@@ -71,8 +71,8 @@ class DownloadCsvController extends AbstractController
             throw new BadRequestHttpException('Form isn\'t submitted');
         }
         $date = $stockIn->getDate();
-        $data = $this->getDoctrine()->getRepository(StockIn::class)->getQueryForCSV($date);
-
+       // $data = $this->getDoctrine()->getRepository(StockIn::class)->getQueryForCSV($date);
+        $data = $this->getDoctrine()->getRepository(StockIn::class)->getStockInQuantity($date);
         $fileName = 'stock-report-' . $date->format('d-m-Y') . '.csv';
         return $this->downloadAsCSV($data, $fileName);
     }

@@ -2,8 +2,14 @@
 
 {% block title %}StockIn index{% endblock %}
 
-{% block body %}
-    <h1>StockIn index</h1>
+{% block body %}inventory_management@localhost
+
+    <div class="my-5">
+        <a href="{{path('app_logout')}}" class="btn btn-danger">Log Out</a>
+        <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>
+    </div>
+
+    <h1>StockIn Info</h1>
 
     <table class="table">
         <thead>

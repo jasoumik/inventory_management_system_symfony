@@ -3,7 +3,12 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <div class="my-5">
+        <a href="{{path('app_logout')}}" class="btn btn-danger">Log Out</a>
+        <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>
+    </div>
+
+    <h1>Product</h1>
 
     <table class="table">
         <thead>

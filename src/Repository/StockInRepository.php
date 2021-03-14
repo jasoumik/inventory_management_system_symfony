@@ -51,4 +51,18 @@ class StockInRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getStockInQuantity($queryDate)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('product.name', 'SUM(s.quantity)')
+            ->leftJoin('s.product', 'product')
+
+            ->andWhere('s.date <= :date')
+            ->setParameter('date', $queryDate)
+            ->groupBy('product.name')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }
