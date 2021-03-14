@@ -24,7 +24,7 @@ class ProductsController extends AbstractController
      * @Method ({"GET"})
      */
 
-    public function index(StockInRepository $stockInRepository){
+    public function stock(StockInRepository $stockInRepository){
 
         $products = $this->getDoctrine()
                         ->getRepository(StockIn::class)
