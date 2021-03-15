@@ -3,6 +3,16 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+
+
+<div class="bg-dark mt-3">
+    <h3 class="p-3 text-light text-center">Inventory Management System </h3>
+</div>
+    <div style="margin-left: 50%">
+        <img src="{{ asset('images/kola.jpeg') }}" style="width: 180px;height: 180px">
+    </div>
+
+<div style="width: 50%; margin-left:25%;margin-top:8%;background:lightgray;">
 <div class="container">
    <a href="{{path('register')}}" class="btn btn-info float-right my-2">Registration Now</a>
 <div>
@@ -18,7 +28,7 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h3 class=" mb-2 font-weight-normal ">Please sign in</h3>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
@@ -34,4 +44,7 @@
         Sign in
     </button>
 </form>
+</div>
+</div>
+</div>
 {% endblock %}

@@ -45,8 +45,8 @@ class ProductsController extends AbstractController
             throw new BadRequestHttpException('Form isn\'t submitted');
         }
         $date=$stockIn->getDate();
-        $date1=$stockIn->getDate();
-        $products = $stockInRepository->getProductWiseBalance($date,$date1);
+
+        $products = $stockInRepository->getProductWiseBalance($date);
         return $this->newView($products,$date);
     }
 

@@ -37,11 +37,11 @@
                         {% for product in products %}
                             <tr>
 
-                                <td>{{ product.pname }}</td>
-                                <td>{{ product.type }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.producttype }}</td>
                                 <td>{{ product.stockin }}</td>
                                 <td>{{ product.stockout }}</td>
-                                <td>{{ product.balance }}</td>
+                                <td>{{ product.stockin - product.stockout }}</td>
 
                             </tr>
                         {% else %}

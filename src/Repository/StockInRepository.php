@@ -64,20 +64,20 @@ class StockInRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    public function getProductWiseBalance($date,$date1)
+    public function getProductWiseBalance($date)
     {
         return $this->getEntityManager()->getConnection()
             ->executeQuery(
-                'select a.name as pName,a.type,COALESCE(a.sum , 0)as stockIn , COALESCE(b.sum , 0) as Stockout , 
-       COALESCE((COALESCE(a.sum , 0)-COALESCE(b.sum , 0))  , 0)  as balance
-from        (select p.name ,pt.type,sum(si.quantity) sum from stock_in si inner join product p on si.product_id = p.id
-            inner join product_type pt on p.product_type_id = pt.id
-where si.date<=? group by p.name,pt.type) as a
-left join  (select p.name ,pt.type,sum(si.quantity) sum from stock_out si inner join product p on si.product_id = p.id
-               inner join product_type pt on p.product_type_id = pt.id
-            where si.date<=? group by p.name,pt.type) as b
-on a.name=b.name',
-                [$date->format('Y-m-d H:i:s'),$date1->format('Y-m-d H:i:s')],
+                'select name,
+       pt.type                                                                                                  as productType,
+       (select coalesce(sum(quantity), 0)
+        from stock_in
+        where date <= ?
+          and product_id = product.id) as stockin,
+(select coalesce( sum(quantity),0 )from stock_out where date<=? and product_id=product.id) as stockout
+from product
+         inner join product_type pt on pt.id = product.product_type_id',
+                [$date->format('Y-m-d H:i:s'),$date->format('Y-m-d H:i:s')],
                 [ParameterType::STRING,ParameterType::STRING] //We need DateTime Param here
             )->fetchAllAssociative();
     }
