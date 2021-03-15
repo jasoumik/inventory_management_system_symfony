@@ -47,7 +47,7 @@ class DownloadCsvController extends AbstractController
     protected function downloadAsCSV(array $data, string $fileName)
     {
         $fp = fopen('php://output', 'w');
-        $header = ['Name', 'Type', 'Quantity', 'Date'];
+        $header = ['Name', 'Type', 'Stock In', 'Stock Out', 'Balance'];
         fputcsv($fp, $header, ',');
         foreach ($data as $row) {
            // $row['date']=$row['date']->format('d-m-Y');
@@ -71,8 +71,9 @@ class DownloadCsvController extends AbstractController
             throw new BadRequestHttpException('Form isn\'t submitted');
         }
         $date = $stockIn->getDate();
+        $date1=$stockIn->getDate();
        // $data = $this->getDoctrine()->getRepository(StockIn::class)->getQueryForCSV($date);
-        $data = $this->getDoctrine()->getRepository(StockIn::class)->getStockInQuantity($date);
+        $data = $this->getDoctrine()->getRepository(StockIn::class)->getProductWiseBalance($date,$date1);
         $fileName = 'stock-report-' . $date->format('d-m-Y') . '.csv';
         return $this->downloadAsCSV($data, $fileName);
     }

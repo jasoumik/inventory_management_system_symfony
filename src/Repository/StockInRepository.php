@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\StockIn;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
 
 //use Symfony\Component\Validator\Constraints\DateTime;
@@ -63,6 +64,21 @@ class StockInRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+    public function getProductWiseBalance($date,$date1)
+    {
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery(
+                'select a.name as pName,a.type,a.sum as stockIn , b.sum as Stockout , (a.sum-b.sum) as balance
+from        (select p.name ,pt.type,sum(si.quantity) sum from stock_in si inner join product p on si.product_id = p.id
+            inner join product_type pt on p.product_type_id = pt.id
+where si.date<=? group by p.name,pt.type) as a
+left join  (select p.name ,pt.type,sum(si.quantity) sum from stock_out si inner join product p on si.product_id = p.id
+               inner join product_type pt on p.product_type_id = pt.id
+            where si.date<=? group by p.name,pt.type) as b
+on a.name=b.name',
+                [$date->format('Y-m-d H:i:s'),$date1->format('Y-m-d H:i:s')],
+                [ParameterType::STRING,ParameterType::STRING] //We need DateTime Param here
+            )->fetchAllAssociative();
+    }
 
 }
