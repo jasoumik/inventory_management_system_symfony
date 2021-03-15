@@ -1,0 +1,50 @@
+
+{% block navbar %}
+
+    <div class="">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Logo Here</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/download/csv">Download</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/type">Product Type </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product">Product</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stock/in">Stock In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stock/out">Stock Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Report </a>
+                    </li>
+
+
+                    <li class="nav-item mx-5">
+                        <span style="float:right;"> <p class="text-success mt-2 ">Welcome!  <b style="color:white;">{{app.user.name }}<b></p></span>
+                    </li>
+                    <li class="nav-item">
+                         {#  <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>#}
+                        <a href="{{path('app_logout')}}" class="btn btn-danger ">Log Out</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    {% endblock %}
