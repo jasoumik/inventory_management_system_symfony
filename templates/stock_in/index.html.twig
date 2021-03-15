@@ -2,12 +2,9 @@
 
 {% block title %}StockIn index{% endblock %}
 
-{% block body %}inventory_management@localhost
+{% block body %}
+    {{ include('navbar.html.twig') }}
 
-    <div class="my-5">
-        <a href="{{path('app_logout')}}" class="btn btn-danger">Log Out</a>
-        <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>
-    </div>
 
     <h1>StockIn Info</h1>
 

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('navbar.html.twig') }}
+
+
+
+
+        <!--MDB Tables-->
+        <div class="container">
+
+
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <!-- Grid row -->
+                    <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
+                    <!-- Grid row -->
+                    <!--Table-->
+
+                    <table class="table table-hover table-responsive mb-0 ">
+
+                        <thead class="bg-secondary text-light">
+                        <tr >
+
+                            <th class="th-lg"><a>Product Name</a></th>
+                            <th class="th-lg">Product Type</th>
+                            <th class="th-lg">Stock In</th>
+                            <th class="th-lg">Stock Out</th>
+                            <th class="th-lg">Balance</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                            <tr>
+
+                                <td>{{ product.pname }}</td>
+                                <td>{{ product.type }}</td>
+                                <td>{{ product.stockin }}</td>
+                                <td>{{ product.stockout }}</td>
+                                <td>{{ product.balance }}</td>
+
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No data found</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+        <!--MDB Tables-->
+
+
+
+
+{% endblock %}

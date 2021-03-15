@@ -3,10 +3,8 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <div class="my-5">
-        <a href="{{path('app_logout')}}" class="btn btn-danger">Log Out</a>
-        <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>
-    </div>
+    {{ include('navbar.html.twig') }}
+
 
     <h1>Product</h1>
 

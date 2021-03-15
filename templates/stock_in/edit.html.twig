@@ -3,6 +3,7 @@
 {% block title %}Edit StockIn{% endblock %}
 
 {% block body %}
+    {{ include('navbar.html.twig') }}
     <h1>Edit StockIn</h1>
 
     {{ include('stock_in/_form.html.twig', {'button_label': 'Update'}) }}

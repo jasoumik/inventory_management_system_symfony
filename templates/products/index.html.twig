@@ -1,73 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    {{ include('navbar.html.twig') }}
+    <body class="hm-gradient">
 
-<body class="hm-gradient">
+    <main>
 
-<main>
+        <!--MDB Tables-->
+        <div class="container mt-1">
 
-    <!--MDB Tables-->
-    <div class="container mt-4">
+            <div class="example-wrapper">
+                    <h4 class="text-dark">Please Select Date</h4>
+                    <div class="row">
+                        <!-- Grid column -->
 
-        <div class="my-5">
-            <a href="{{path('app_logout')}}" class="btn btn-danger">Log Out</a>
-            <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <!-- Grid row -->
-                <div class="row">
-                    <!-- Grid column -->
-                    <div class="col-md-12">
-                        <h2 class="py-3 text-center font-bold font-up blue-text">Products Table</h2>
+                        <!-- Grid column -->
+                        <div>
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        </div>
                     </div>
-                    <!-- Grid column -->
-                    <div>
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="datetime-local" class="form-control"  placeholder="Select Date">
-                            </div>
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                        </form>
-                    </div>
+                    <!-- Grid row -->
+                    <!--Table-->
+
                 </div>
-                <!-- Grid row -->
-                <!--Table-->
-                <table class="table table-hover table-responsive mb-0">
-                    <!--Table head-->
-                    <thead>
-                    <tr>
-                        <th scope="row">#</th>
-                        <th class="th-lg"><a>Product Name</a></th>
-                        <th class="th-lg"><a href="">Product Type</a></th>
-                        <th class="th-lg"><a href="">Quantity</a></th>
-                        <th class="th-lg"><a href="">Date</a></th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <th scope="row"></th>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.type }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td>{{ product.date|date('d-m-Y') }}</td>
-                    </tr>
-                    {% endfor %}
-
-                    </tbody>
-                    <!--Table body-->
-                </table>
-            </div>
         </div>
+        <!--MDB Tables-->
 
-    </div>
-    <!--MDB Tables-->
+    </main>
 
-</main>
-
-</body>
+    </body>
 
 {% endblock %}

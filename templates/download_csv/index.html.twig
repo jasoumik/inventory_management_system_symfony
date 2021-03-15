@@ -9,19 +9,9 @@
 </style>
     {{ include('navbar.html.twig') }}
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    Query Check
-    <ul>
 
 
-{#        {% for stock in query %}#}
-
-{#            {{ stock.name }} <br>#}
-{#            {{ stock.type }}#}
-
-
-{#        {% endfor %}#}
+    <h4 class="text-dark">Please Select Date</h4>
         <div class="variance-report-form-container d-flex align-items-center">
             {{ form_start(form) }}
 
@@ -40,6 +30,6 @@
         </div>
 
 
-    </ul>
+
 </div>
 {% endblock %}

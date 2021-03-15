@@ -3,55 +3,61 @@
 
 namespace App\Controller;
 
-use App\Entity\NewProject\Budget;
-use App\Entity\Product;
 use App\Entity\StockIn;
-use App\Form\FormValidationException;
-use App\Form\NewProjectBudgetType;
-use App\Form\ProductsType;
+use App\Form\StockReportType;
 use App\Form\StockType;
 use App\Repository\StockInRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+/**
+ * @Route("/products", name="product_list_")
+ */
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/products", name="product_list")
-     * @Method ({"GET"})
+     * @Route("", name="index", methods={"GET","POST"})
      */
-
-    public function index(StockInRepository $stockInRepository){
-
-        $products = $this->getDoctrine()
-                        ->getRepository(StockIn::class)
-                        ->getProducts();
-
-        return $this->render('products/index.html.twig',
-            array('products'=>$products));
+    public function index(StockInRepository $stockInRepository)
+    {
+        $form = $this->createForm(
+            StockReportType::class, null,[
+            'action' => $this->generateUrl('product_list_view')
+        ]);
+        return $this->render(
+            'products/index.html.twig',
+            [
+                'form' => $form->createView(),
+            ]);
     }
 
     /**
-     * @Route("/stocks", name="stock_list")
-     * @Method ({GET})
+     * @Route("/stocks", name="view")
      */
+    public function stockView(Request $request, StockInRepository $stockInRepository)
+    {
+        $stockIn = new StockIn();
+        $form = $this->createForm(StockReportType::class, $stockIn);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && !$form->isValid()) {
+            throw new BadRequestHttpException('Form isn\'t submitted');
+        }
+        $date=$stockIn->getDate();
+        $date1=$stockIn->getDate();
+        $products = $stockInRepository->getProductWiseBalance($date,$date1);
+        return $this->newView($products,$date);
+    }
 
-//    public function stockView(Request $request){
-//        $stocks = new StockIn();
-//        $form = $this->createForm(StockType::class, $stocks);
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted()) {
-//            if (!$form->isValid()) {
-//                throw new FormValidationException($form);
-//            }
-//            $em = $this->get('doctrine')->getManager();
-//            $em->persist($stocks);
-//            $em->flush();
-//        }
-//    }
+    public function newView(array $data,$date)
+    {
+
+        return $this->render('products/view.html.twig', [
+            'products' => $data,
+            'date'=>$date
+        ]);
+    }
 
 
 }

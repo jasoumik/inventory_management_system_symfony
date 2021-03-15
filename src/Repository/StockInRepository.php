@@ -68,7 +68,8 @@ class StockInRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()->getConnection()
             ->executeQuery(
-                'select a.name as pName,a.type,a.sum as stockIn , b.sum as Stockout , (a.sum-b.sum) as balance
+                'select a.name as pName,a.type,COALESCE(a.sum , 0)as stockIn , COALESCE(b.sum , 0) as Stockout , 
+       COALESCE((COALESCE(a.sum , 0)-COALESCE(b.sum , 0))  , 0)  as balance
 from        (select p.name ,pt.type,sum(si.quantity) sum from stock_in si inner join product p on si.product_id = p.id
             inner join product_type pt on p.product_type_id = pt.id
 where si.date<=? group by p.name,pt.type) as a
