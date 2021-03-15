@@ -23,14 +23,12 @@ class ProductsController extends AbstractController
     public function index(StockInRepository $stockInRepository)
     {
         $form = $this->createForm(
-            StockReportType::class, null,[
+            StockReportType::class, null, [
             'action' => $this->generateUrl('product_list_view')
         ]);
         return $this->render(
             'products/index.html.twig',
-            [
-                'form' => $form->createView(),
-            ]);
+            ['form' => $form->createView()]);
     }
 
     /**
@@ -44,18 +42,17 @@ class ProductsController extends AbstractController
         if ($form->isSubmitted() && !$form->isValid()) {
             throw new BadRequestHttpException('Form isn\'t submitted');
         }
-        $date=$stockIn->getDate();
-
+        $date = $stockIn->getDate();
         $products = $stockInRepository->getProductWiseBalance($date);
-        return $this->newView($products,$date);
+        return $this->newView($products, $date);
     }
 
-    public function newView(array $data,$date)
+    public function newView(array $data, $date)
     {
 
         return $this->render('products/view.html.twig', [
             'products' => $data,
-            'date'=>$date
+            'date' => $date
         ]);
     }
 

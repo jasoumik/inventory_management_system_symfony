@@ -30,8 +30,9 @@ class DownloadCsvController extends AbstractController
 //    }
     /**
      * @Route("/", name="download_csv")
+     * @return Response
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
         $form = $this->createForm(
             CsvDownloadFormType::class,
@@ -44,7 +45,7 @@ class DownloadCsvController extends AbstractController
         ]);
     }
 
-    protected function downloadAsCSV(array $data, string $fileName)
+    protected function downloadAsCSV(array $data, string $fileName): Response
     {
         $fp = fopen('php://output', 'w');
         $header = ['Name', 'Type', 'Stock In', 'Stock Out', 'Balance'];
@@ -61,8 +62,10 @@ class DownloadCsvController extends AbstractController
 
     /**
      * @Route("/download", name="download")
+     * @param Request $request
+     * @return Response
      */
-    public function download(Request $request)
+    public function download(Request $request): Response
     {
         $stockIn = new StockIn();
         $form = $this->createForm(CsvDownloadFormType::class, $stockIn);
