@@ -3,71 +3,39 @@
 {% block body %}
     {{ include('navbar.html.twig') }}
 
-
-
-
-        <!--MDB Tables-->
-        <div class="container">
-
-
-
-            <div class="card">
-
-                <div class="card-body">
-
-                    <!-- Grid row -->
-                    <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
-                    <!-- Grid row -->
-                    <!--Table-->
-
-                    <table class="table table-hover table-responsive mb-0 ">
-
-                        <thead class="bg-secondary text-light">
-                        <tr >
-
-                            <th class="th-lg"><a>Product Name</a></th>
-                            <th class="th-lg">Product Type</th>
-                            <th class="th-lg">Stock In</th>
-                            <th class="th-lg">Stock Out</th>
-                            <th class="th-lg">Balance</th>
-
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
+                <table class="table table-hover table-responsive mb-0 ">
+                    <thead class="bg-secondary text-light">
+                    <tr>
+                        <th class="th-lg"><a>Product Name</a></th>
+                        <th class="th-lg">Product Type</th>
+                        <th class="th-lg">Stock In</th>
+                        <th class="th-lg">Stock Out</th>
+                        <th class="th-lg">Balance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.producttype }}</td>
+                            <td>{{ product.stockin }}</td>
+                            <td>{{ product.stockout }}</td>
+                            <td>{{ product.stockin - product.stockout }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        {% for product in products %}
-                            <tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No data found</td>
+                        </tr>
+                    {% endfor %}
 
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.producttype }}</td>
-                                <td>{{ product.stockin }}</td>
-                                <td>{{ product.stockout }}</td>
-                                <td>{{ product.stockin - product.stockout }}</td>
-
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="5">No data found</td>
-                            </tr>
-                        {% endfor %}
-
-                        </tbody>
-                        <!--Table body-->
-                    </table>
-                </div>
-
+                    </tbody>
+                </table>
             </div>
-
-
-
-
-
-
-
-
         </div>
-        <!--MDB Tables-->
-
-
-
+    </div>
 
 {% endblock %}
