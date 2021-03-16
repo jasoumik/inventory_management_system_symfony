@@ -24,7 +24,18 @@
             color: black;
         }
     </style>
-    <body >
+    <body>
+
+
+         {% block navbar %}
+                 {% if app.user %}
+                     {{ include('navbar.html.twig') }}
+                 {% elseif not app.user %}
+
+                {% endif %}
+         {% endblock %}
+
+
 
         <div class="container">
             {% block body %}
