@@ -78,7 +78,7 @@ class StockInRepository extends ServiceEntityRepository
 from product
          inner join product_type pt on pt.id = product.product_type_id',
                 [$date->format('Y-m-d H:i:s'),$date->format('Y-m-d H:i:s')],
-                [ParameterType::STRING,ParameterType::STRING] //We need DateTime Param here
+                [ParameterType::STRING,ParameterType::STRING]
             )->fetchAllAssociative();
     }
 
