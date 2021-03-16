@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Component\EasyGrid\Column\ActionColumn;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -78,5 +79,6 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('product_index');
+
     }
 }
