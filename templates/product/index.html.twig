@@ -11,19 +11,36 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>SL</th>
                 <th>Name</th>
-                <th>actions</th>
+                <th>Product Type</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for i,product in products %}
             <tr>
-                <td>{{ product.id }}</td>
+                <td>{{ i+1 }}</td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.producttype }}</td>
                 <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+                    <div class="dropdown dropdown-inline mr-4">
+                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ki ki-bold-more-ver"></i>
+                            <b>...</b>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div>
+                                <a href="{{ path('product_edit', {'id': product.id}) }}">edit </a>
+                            </div>
+                            <div>
+                                <a href="{{ path('product_delete', {'id': product.id}) }}">delete</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+
                 </td>
             </tr>
         {% else %}
