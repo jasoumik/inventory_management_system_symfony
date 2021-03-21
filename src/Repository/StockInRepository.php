@@ -76,9 +76,10 @@ class StockInRepository extends ServiceEntityRepository
           and product_id = product.id) as stockin,
 (select coalesce( sum(quantity),0 )from stock_out where date<=? and product_id=product.id) as stockout
 from product
-         inner join product_type pt on pt.id = product.product_type_id',
+         inner join product_type pt on pt.id = product.product_type_id
+         inner join stock_in s on product.id=s.product_id',
                 [$date->format('Y-m-d H:i:s'),$date->format('Y-m-d H:i:s')],
-                [ParameterType::STRING,ParameterType::STRING] //We need DateTime Param here
+                [ParameterType::STRING,ParameterType::STRING]
             )->fetchAllAssociative();
     }
 
