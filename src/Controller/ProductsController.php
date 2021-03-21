@@ -79,19 +79,19 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/download", name="download")
-     * @param Request $request
+     * @Route("/download/{date}", name="download")
+     * @param \DateTime $date
      * @return Response
      */
-    public function download(Request $request): Response
+    public function download(\DateTime $date): Response
     {
-        $stockIn = new StockIn();
-        $form = $this->createForm(CsvDownloadFormType::class, $stockIn);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && !$form->isValid()) {
-            throw new BadRequestHttpException('Form isn\'t submitted');
-        }
-        $date = $stockIn->getDate();
+//        $stockIn = new StockIn();
+//        $form = $this->createForm(StockReportType::class, $stockIn);
+//        $form->handleRequest($request);
+//        if ($form->isSubmitted() && !$form->isValid()) {
+//            throw new BadRequestHttpException('Form isn\'t submitted');
+//        }
+//        $date = $stockIn->getDate();
 
        // $date=$request->query->get();
 
