@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use App\Entity\StockIn;
 use App\Entity\StockOut;
 use App\Form\StockOutType;
 use App\Repository\StockOutRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/stock/out')]
@@ -25,15 +28,26 @@ class StockOutController extends AbstractController
     public function new(Request $request): Response
     {
         $stockOut = new StockOut();
+        $stockIn= new Product();
         $form = $this->createForm(StockOutType::class, $stockOut);
         $form->handleRequest($request);
+        $id=$stockIn->getId();
+        $stockOutQuantity=$stockOut->getQuantity();
+        $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->getExceptionQuery($id);
+        if ( $form->isSubmitted() && $form->isValid()) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($stockOut);
-            $entityManager->flush();
+            if ($stockOutQuantity<$stockInQuantity){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($stockOut);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('stock_out_index');
+
+
+                return $this->redirectToRoute('stock_out_index');
+            }else{
+                throw new BadRequestHttpException('Form isn\'t submitted');
+            }
+
         }
 
         return $this->render('stock_out/new.html.twig', [

@@ -82,5 +82,17 @@ from product
                 [ParameterType::STRING,ParameterType::STRING]
             )->fetchAllAssociative();
     }
-
+    public function getExceptionQuery($id)
+    {
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery('select  ((select coalesce(sum(quantity), 0) si
+               from stock_in                                                                                                where product_id = product.id)
+           -  (select coalesce( sum(quantity),0 )from stock_out where  product_id=product.id)) as balance
+from product
+where product.id=?
+',
+                [$id],
+                [ParameterType::INTEGER]
+            )->fetchAllAssociative();
+    }
 }
