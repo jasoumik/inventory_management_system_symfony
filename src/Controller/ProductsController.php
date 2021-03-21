@@ -60,9 +60,12 @@ class ProductsController extends AbstractController
 
     }
 
-    protected function downloadAsCSV(array $data, string $fileName): Response
+    protected function downloadAsCSV(array $data, string $fileName,\DateTime $date): Response
     {
         $fp = fopen('php://output', 'w');
+
+        $new=['Date',$date->format('d-m-Y')];
+        fputcsv($fp, $new, ',');
         $header = ['Name', 'Type', 'Stock In', 'Stock Out', 'Balance'];
         fputcsv($fp, $header, ',');
         foreach ($data as $row) {
@@ -72,6 +75,8 @@ class ProductsController extends AbstractController
 
             fputcsv($fp, $row, ',');
         }
+
+
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', 'attachment; filename=' . $fileName . '');
@@ -83,21 +88,12 @@ class ProductsController extends AbstractController
      * @param \DateTime $date
      * @return Response
      */
-    public function download(\DateTime $date): Response
+    public function download(\DateTime $date)
     {
-//        $stockIn = new StockIn();
-//        $form = $this->createForm(StockReportType::class, $stockIn);
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted() && !$form->isValid()) {
-//            throw new BadRequestHttpException('Form isn\'t submitted');
-//        }
-//        $date = $stockIn->getDate();
-
-       // $date=$request->query->get();
 
         $data = $this->getDoctrine()->getRepository(StockIn::class)->getProductWiseBalance($date);
         $fileName = 'stock-report-' . $date->format('d-m-Y') . '.csv';
-        return $this->downloadAsCSV($data, $fileName);
+        return $this->downloadAsCSV($data, $fileName,$date);
     }
 
 }
