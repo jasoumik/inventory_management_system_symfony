@@ -3,24 +3,39 @@
 {% block title %}ProductType index{% endblock %}
 
 {% block body %}
-    <h1>ProductType index</h1>
+
+
+    <h1>ProductType</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Type</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for product_type in product_types %}
+        {% for i, product_type in product_types %}
             <tr>
-                <td>{{ product_type.id }}</td>
+                <td>{{ i+1 }}</td>
                 <td>{{ product_type.type }}</td>
                 <td>
-                    <a href="{{ path('product_type_show', {'id': product_type.id}) }}">show</a>
-                    <a href="{{ path('product_type_edit', {'id': product_type.id}) }}">edit</a>
+                    <div class="dropdown dropdown-inline mr-4">
+                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ki ki-bold-more-ver"></i>
+                            <b>...</b>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div>
+                                <a href="{{ path('product_type_edit', {'id': product_type.id}) }}">edit</a>
+                            </div>
+                            <div>
+                                <a href="{{ path('product_type_delete', {'id': product_type.id}) }}">delete</a>
+                            </div>
+
+                        </div>
+
                 </td>
             </tr>
         {% else %}
@@ -31,5 +46,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('product_type_new') }}">Create new</a>
+    <a href="{{ path('product_type_new') }}" class="btn btn-info">Create new</a>
 {% endblock %}

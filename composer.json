@@ -13,7 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
         "phpdocumentor/reflection-docblock": "^5.2",
-        "sensio/framework-extra-bundle": "^5.1",
+        "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",
         "symfony/dotenv": "5.2.*",
@@ -24,6 +24,7 @@
         "symfony/http-client": "5.2.*",
         "symfony/intl": "5.2.*",
         "symfony/mailer": "5.2.*",
+        "symfony/maker-bundle": "^1.29",
         "symfony/mime": "5.2.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.2.*",
@@ -40,13 +41,13 @@
         "symfony/web-link": "5.2.*",
         "symfony/yaml": "5.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "uxweb/sweet-alert": "^2.0"
     },
     "require-dev": {
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
-        "symfony/maker-bundle": "^1.29",
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",

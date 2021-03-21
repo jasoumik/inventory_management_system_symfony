@@ -3,26 +3,43 @@
 {% block title %}StockIn index{% endblock %}
 
 {% block body %}
-    <h1>StockIn index</h1>
+
+    <h1>StockIn Info</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
+                <th>Name</th>
+                <th>Product Type</th>
                 <th>Date</th>
                 <th>Quantity</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for stock_in in stock_ins %}
+        {% for i, stock_in in stock_ins %}
             <tr>
-                <td>{{ stock_in.id }}</td>
-                <td>{{ stock_in.date ? stock_in.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ i+1 }}</td>
+                <td>{{ stock_in.product.name }}</td>
+                <td>{{ stock_in.product.producttype }}</td>
+                <td>{{ stock_in.date ? stock_in.date|date('d-m-Y') : '' }}</td>
                 <td>{{ stock_in.quantity }}</td>
                 <td>
-                    <a href="{{ path('stock_in_show', {'id': stock_in.id}) }}">show</a>
-                    <a href="{{ path('stock_in_edit', {'id': stock_in.id}) }}">edit</a>
+                    <div class="dropdown dropdown-inline mr-4">
+                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ki ki-bold-more-ver"></i>
+                            <b>...</b>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div>
+                                <a href="{{ path('stock_in_edit', {'id': stock_in.id}) }}">edit</a>
+                            </div>
+                            <div>
+                                <a href="{{ path('stock_in_delete', {'id': stock_in.id}) }}">delete </a>
+                            </div>
+
+                        </div>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +50,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('stock_in_new') }}">Create new</a>
+    <a href="{{ path('stock_in_new') }}" class="btn btn-info">Create new</a>
+    <br>
+
 {% endblock %}

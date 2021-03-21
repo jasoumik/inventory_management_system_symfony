@@ -28,7 +28,7 @@ class StockIn
     private $quantity;
 
     /**
-     * @ORM\OneToOne(targetEntity=Product::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Product::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
@@ -72,5 +72,15 @@ class StockIn
         $this->product = $product;
 
         return $this;
+    }
+    /**
+     * Generates the magic method
+     *
+     */
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->id;
+        // to show the id of the Category in the select
+        // return $this->id;
     }
 }

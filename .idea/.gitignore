@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../:\xampp\htdocs\inventory_management_system_symfony\.idea/dataSources/
+/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

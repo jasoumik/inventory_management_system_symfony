@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New StockOut{% endblock %}
+
+{% block body %}
+
+    <h1>Create new StockOut</h1>
+
+    {{ include('stock_out/_form.html.twig') }}
+
+    <a href="{{ path('stock_out_index') }}">Back to list</a>
+{% endblock %}
