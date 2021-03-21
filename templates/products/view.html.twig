@@ -1,10 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ include('navbar.html.twig') }}
-
-
-
 
         <!--MDB Tables-->
         <div class="container">
@@ -17,6 +13,7 @@
 
                     <!-- Grid row -->
                     <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
+                    <a href="{{ path('product_list_download',{date:date|date('Y-m-d')})}}">Export as CSV</a>
                     <!-- Grid row -->
                     <!--Table-->
 
@@ -53,6 +50,7 @@
                         </tbody>
                         <!--Table body-->
                     </table>
+
                 </div>
 
             </div>

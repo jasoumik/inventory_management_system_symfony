@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\StockIn;
 use App\Form\CsvDownloadFormType;
+use App\Form\StockReportType;
 use App\Repository\StockInRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -51,7 +52,10 @@ class DownloadCsvController extends AbstractController
         $header = ['Name', 'Type', 'Stock In', 'Stock Out', 'Balance'];
         fputcsv($fp, $header, ',');
         foreach ($data as $row) {
-           // $row['date']=$row['date']->format('d-m-Y');
+            //$row['date']=$row['date']->format('d-m-Y');
+           $row['balance']=$row['stockin']-$row['stockout'];
+
+
             fputcsv($fp, $row, ',');
         }
         $response = new Response();
@@ -74,9 +78,9 @@ class DownloadCsvController extends AbstractController
             throw new BadRequestHttpException('Form isn\'t submitted');
         }
         $date = $stockIn->getDate();
-        $date1=$stockIn->getDate();
-       // $data = $this->getDoctrine()->getRepository(StockIn::class)->getQueryForCSV($date);
-        $data = $this->getDoctrine()->getRepository(StockIn::class)->getProductWiseBalance($date,$date1);
+
+
+        $data = $this->getDoctrine()->getRepository(StockIn::class)->getProductWiseBalance($date,$date);
         $fileName = 'stock-report-' . $date->format('d-m-Y') . '.csv';
         return $this->downloadAsCSV($data, $fileName);
     }
