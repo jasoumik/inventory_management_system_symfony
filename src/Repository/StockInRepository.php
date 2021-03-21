@@ -68,8 +68,8 @@ class StockInRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()->getConnection()
             ->executeQuery(
-                'select name,
-       pt.type                                                                                                  as productType,
+                'select distinct name,
+       pt.type as productType,
        (select coalesce(sum(quantity), 0)
         from stock_in
         where date <= ?
