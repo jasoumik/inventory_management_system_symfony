@@ -25,19 +25,24 @@
         }
     </style>
     <body>
-
-
-         {% block navbar %}
-                 {% if app.user %}
-                     {{ include('navbar.html.twig') }}
-                 {% elseif not app.user %}
-
-                {% endif %}
-         {% endblock %}
+    {{ include('navbar.html.twig') }}
 
 
 
-        <div class="container">
+    {# This checking is most important#}
+
+
+{#         {% block navbar %}#}
+{#                 {% if app.user %}#}
+{#                     {{ include('navbar.html.twig') }}#}
+{#                 {% elseif not app.user %}#}
+
+{#                {% endif %}#}
+{#         {% endblock %}#}
+
+
+
+        <div class="container text-dark">
             {% block body %}
 
             {% endblock %}
