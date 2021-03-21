@@ -25,6 +25,13 @@
         }
     </style>
     <body >
+    {% block navbar %}
+        {% if app.user %}
+            {{ include('navbar.html.twig') }}
+        {% elseif not app.user %}
+
+        {% endif %}
+    {% endblock %}
 
 
 
