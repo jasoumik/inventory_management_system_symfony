@@ -3,44 +3,26 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    {{ include('navbar.html.twig') }}
 
 
     <h1>Product</h1>
 
     <table class="table">
         <thead>
-        <tr>
-            <th>SL</th>
-            <th>Name</th>
-            <th>Product Type</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
         </thead>
         <tbody>
-        {% for i,product in products %}
+        {% for product in products %}
             <tr>
-                <td>{{ i+1 }}</td>
+                <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.producttype }}</td>
                 <td>
-                    <div class="dropdown dropdown-inline mr-4">
-                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ki ki-bold-more-ver"></i>
-                            <b>...</b>
-                        </button>
-                        <div class="dropdown-menu">
-                            <div>
-                                <a href="{{ path('product_edit', {'id': product.id}) }}">edit </a>
-                            </div>
-                            <div>
-                                <a href="{{ path('product_delete', {'id': product.id}) }}">delete</a>
-                            </div>
-
-
-                        </div>
-                    </div>
-
+                    <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>
+                    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}
@@ -54,5 +36,5 @@
     <a href="{{ path('product_new') }}" class="btn btn-info">Create new</a>
     <br>
 
-    <a href="{{ path('stock_in_index') }}">Stock In</a>
+{#    <a href="{{ path('stock_in_index') }}">Stock In</a>#}
 {% endblock %}
