@@ -9,4 +9,19 @@
     {{ include('stock_out/_form.html.twig') }}
 
     <a href="{{ path('stock_out_index') }}">back to list</a>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $(document).ready(function () {
+                $('.input-datepicker').datepicker({
+                    clearBtn: true,
+                    todayHighlight: true,
+                    toggleActive: true,
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                });
+            });
+        </script>
+    {% endblock %}
 {% endblock %}

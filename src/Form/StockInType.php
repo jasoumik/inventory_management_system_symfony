@@ -16,12 +16,21 @@ class StockInType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', DateType::class, [
-                'widget' => 'single_text',
+            ->add('date',
+                DateType::class,
+                [
+                        'widget' => 'single_text',
+                        'format'=>'dd/mm/yyyy',
+                        'html5' => false,
+                        'attr' => [
+                            'class' => 'input-datepicker',
+                            'placeholder' => 'Select Date',
+                            'style' => 'width:100%',
+                        ],
             ])
             ->add('quantity', NumberType::class)
             ->add('product', EntityType::class, [
-                'class'=>Product::class
+                'class' => Product::class
             ]);
     }
 
@@ -29,7 +38,7 @@ class StockInType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => StockIn::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
+            'attr' => ['class' => 'form-control mt-2 bg-light', 'style' => 'width:75%'],
         ]);
     }
 }
