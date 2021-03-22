@@ -28,15 +28,25 @@ class StockOutController extends AbstractController
     public function new(Request $request): Response
     {
         $stockOut = new StockOut();
-        $stockIn= new Product();
+
+      //  $product= new Product();
         $form = $this->createForm(StockOutType::class, $stockOut);
         $form->handleRequest($request);
-        $id=$stockIn->getId();
-        $stockOutQuantity=$stockOut->getQuantity();
-        $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->getExceptionQuery($id);
-        if ( $form->isSubmitted() && $form->isValid()) {
+       // $id=$this->getDoctrine()->getRepository(Product::class)->find();
+     //   $productId=$stockOut->getProduct()->getId();
+       // var_dump($id);
 
-            if ($stockOutQuantity<$stockInQuantity){
+        //$stockOutQuantity=$stockOut->getQuantity();
+
+       // $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->getBalance($productId);
+        if ( $form->isSubmitted() && $form->isValid()) {
+//            $productId=$stockOut->getProduct()->getId();
+//          //   var_dump($productId);
+//
+//            $stockOutQuantity=$stockOut->getQuantity();
+//
+//            $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->getBalance($productId);
+//            if ($stockOutQuantity<$stockInQuantity){
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($stockOut);
                 $entityManager->flush();
@@ -44,9 +54,10 @@ class StockOutController extends AbstractController
 
 
                 return $this->redirectToRoute('stock_out_index');
-            }else{
-                throw new BadRequestHttpException('Form isn\'t submitted');
-            }
+//            }else{
+//               // throw new BadRequestHttpException('Form isn\'t submitted');
+//                return $this->render('stock_out/error.html.twig');
+//            }
 
         }
 
@@ -92,5 +103,10 @@ class StockOutController extends AbstractController
         }
 
         return $this->redirectToRoute('stock_out_index');
+    }
+    #[Route('/balance', name: 'balance')]
+    public function balance()
+    {
+        return $this->getDoctrine()->getRepository(StockIn::class)->getBalance(1);
     }
 }

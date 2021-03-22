@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\StockOutRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Component\Validator\Constraints\ContainBalance;
 /**
  * @ORM\Entity(repositoryClass=StockOutRepository::class)
+ * @ContainBalance
  */
 class StockOut
 {
@@ -30,6 +32,7 @@ class StockOut
 
     /**
      * @ORM\Column(type="integer")
+
      */
     private $quantity;
 
