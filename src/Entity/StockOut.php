@@ -32,7 +32,9 @@ class StockOut
 
     /**
      * @ORM\Column(type="integer")
-
+     * @Assert\GreaterThan(
+     *     value = 0
+     * )
      */
     private $quantity;
 
