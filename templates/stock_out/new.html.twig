@@ -9,4 +9,35 @@
     {{ include('stock_out/_form.html.twig') }}
 
     <a href="{{ path('stock_out_index') }}">Back to list</a>
+
+    <script>
+        $(document).ready(function(){
+            $('.select').select2();
+            $(".select").on('change',function() {
+                var id = $(this).val();
+                if(id) {
+                    $.ajax({
+                        url: "/stock/out/balance/" + id,
+                        type: "GET",
+
+                        dataType: "json",
+
+                        success: function (data) {
+                            var balance = data.balance;
+                           var my= $("#msg").text('Available balance is ' + balance);
+
+                        }
+                    });
+                }else{
+                    $("#msg").text('Please Select Product');
+                }
+            });
+        });
+    </script>
 {% endblock %}
+
+{#var str = "";#}
+{#$( "select option:selected" ).each(function() {#}
+{#str += $( this ).text() + " ";#}
+{#});#}
+{#$( "#msg" ).text( str );#}

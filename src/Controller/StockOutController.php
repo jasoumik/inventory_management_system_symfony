@@ -104,9 +104,15 @@ class StockOutController extends AbstractController
 
         return $this->redirectToRoute('stock_out_index');
     }
-    #[Route('/balance', name: 'balance')]
-    public function balance()
+
+    #[Route('/balance/{id}', name: 'balance')]
+    public function balance($id):Response
     {
-        return $this->getDoctrine()->getRepository(StockIn::class)->getBalance(1);
+      //  return
+           $balance= $this->getDoctrine()->getRepository(StockIn::class)->getBalance($id);
+        return $this->json([
+            'success'=>true,
+            'balance'=>$balance
+        ]);
     }
 }

@@ -35,6 +35,15 @@ class StockOutType extends AbstractType
     {
         if (isset($this)) {
             $builder
+                ->add('product', EntityType::class, [
+                    'class'=>Product::class,
+                    'placeholder' => 'Select The Product First',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                    'attr' => ['class' => 'select'],
+
+                ])
                 ->add('date', DateType::class, [
                     'widget' => 'single_text',
                 ])
@@ -44,10 +53,9 @@ class StockOutType extends AbstractType
                     'constraints' => [
                         new NotBlank(),
                        ],
+                    'attr' => ['class' => 'msg'],
                 ])
-                ->add('product', EntityType::class, [
-                    'class'=>Product::class
-                ]);
+                ;
         }
 
     }
