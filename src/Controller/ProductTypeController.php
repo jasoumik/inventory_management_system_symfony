@@ -24,6 +24,8 @@ class ProductTypeController extends AbstractController
     #[Route('/new', name: 'product_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
+
+
         $productType = new ProductType();
         $form = $this->createForm(ProductTypeType::class, $productType);
         $form->handleRequest($request);
@@ -35,6 +37,8 @@ class ProductTypeController extends AbstractController
 
             return $this->redirectToRoute('product_type_index');
         }
+
+
 
         return $this->render('product_type/new.html.twig', [
             'product_type' => $productType,
