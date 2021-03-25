@@ -71,7 +71,7 @@ class ProductTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete',  name: 'product_type_delete', methods: ['DELETE'])]
+    #[Route('/{id}',  name: 'product_type_delete', methods: ['DELETE'])]
     public function delete(Request $request, ProductType $productType, EntityManagerInterface $em): Response
     {
 

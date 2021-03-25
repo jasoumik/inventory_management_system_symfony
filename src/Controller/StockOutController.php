@@ -110,6 +110,7 @@ class StockOutController extends AbstractController
     {
       //  return
            $balance= $this->getDoctrine()->getRepository(StockIn::class)->getBalance($id);
+
         return $this->json([
             'success'=>true,
             'balance'=>$balance

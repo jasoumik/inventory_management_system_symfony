@@ -23,6 +23,7 @@
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+                    <a href="{{ path('product_delete', {'id': product.id}) }}" >delete</a>
                 </td>
             </tr>
         {% else %}
@@ -36,5 +37,28 @@
     <a href="{{ path('product_new') }}" class="btn btn-info">Create new</a>
     <br>
 
-{#    <a href="{{ path('stock_in_index') }}">Stock In</a>#}
+    <script>
+        $(document).ready(function(){
+
+
+            $("#deleteButton").on('click',function() {
+                var id = $(this).val();
+                if(id) {
+                    $.ajax({
+                        url: "/product/" + id,
+                        type: "DELETE",
+                        data: {
+                            "id": id,
+                            "_token": token,
+                        },
+                        success: function (){
+                            console.log("it Works");
+                        }
+
+                    });
+                }
+            });
+
+        });
+    </script>
 {% endblock %}

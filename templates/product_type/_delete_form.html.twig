@@ -1,6 +1,7 @@
 <form method="post" action="{{ path('product_type_delete', {'id': product_type.id}) }}" onsubmit="return swal('Deleted Successfully!', '', 'success');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product_type.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn" id="deleteButton">Delete</button>
 
 </form>
+

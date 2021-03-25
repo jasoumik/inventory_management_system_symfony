@@ -21,6 +21,7 @@ class StockOut
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(payload={"severity"="error"})
      */
     private $date;
 

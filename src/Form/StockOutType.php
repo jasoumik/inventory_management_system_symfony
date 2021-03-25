@@ -46,6 +46,8 @@ class StockOutType extends AbstractType
                 ])
                 ->add('date', DateType::class, [
                     'widget' => 'single_text',
+                    'attr' => ['class' => 'date','id' => 'date'],
+
                 ])
                 ->add('quantity', NumberType::class,
                 [
@@ -53,7 +55,7 @@ class StockOutType extends AbstractType
                     'constraints' => [
                         new NotBlank(),
                        ],
-                    'attr' => ['class' => 'msg'],
+                    'attr' => ['class' => 'quantity','id'=>'quantity'],
                 ])
                 ;
         }
@@ -64,7 +66,7 @@ class StockOutType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => StockOut::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
+            'attr' => ['class' => 'form-control mt-2 bg-light stockOutForm',  'style' => 'width:75%'],
 
         ]);
     }

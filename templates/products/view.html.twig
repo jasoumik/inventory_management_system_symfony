@@ -12,11 +12,13 @@
                 <div class="card-body">
 
                     <!-- Grid row -->
-                    <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
-                    <a class="float-right mt-3" href="{{ path('product_list_download',{date:date|date('Y-m-d')})}}">Export as CSV</a>
+
+                    <a class="float-right mt-7" href="{{ path('product_list_download',{date:date|date('Y-m-d')})}}">Export as CSV</a>
+                    <br>
+                    <a class="float-right mt-4" href="/products">Check Another Report</a>
                     <!-- Grid row -->
                     <!--Table-->
-
+                    <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
                     <table class="table table-hover table-responsive mb-0 ">
 
                         <thead class="bg-secondary text-light">
