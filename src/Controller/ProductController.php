@@ -21,6 +21,21 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/aggrid', name: 'product_grid', methods: ['GET'])]
+    public function grid(ProductRepository $productRepository): Response
+    {
+        $product = [];
+        $newProduct = $productRepository->findAll();
+        foreach ($newProduct as $row) {
+            $product [] = ['id' => $row->getId(),
+                'name' => $row->getName(),
+                'productType' => $row->getProductType()->getType()];
+        }
+        return $this->json(
+            $product
+        );
+    }
+
     #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
@@ -71,12 +86,13 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'product_delete', methods: ['DELETE'])]
     public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('product_index');
     }
+
+
 }
