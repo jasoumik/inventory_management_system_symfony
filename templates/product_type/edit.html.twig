@@ -7,6 +7,15 @@
     <h1>Edit ProductType</h1>
 
     {{ include('product_type/_form.html.twig', {'button_label': 'Update'}) }}
+    <script>$('#b').on('click',function ()
+        {
+            swal({
+                title: " Updated Successfully!",
+                text: "",
+                icon: "success",
+
+            })
+        })</script>
 
     <a href="{{ path('product_type_index') }}">Back to list</a>
 

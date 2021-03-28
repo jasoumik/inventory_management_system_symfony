@@ -1,14 +1,4 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn btn-success" id="b">{{ button_label|default('Save')}}
-
- <script>$('#b').on('click',function ()
-     {
-         swal({
-             title: "Saved Successfully!",
-             text: "",
-             icon: "success",
-
-         })
-     })</script></button>
+    <button class="btn btn-success" id="b">{{ button_label|default('Save')}} </button>
 {{ form_end(form) }}

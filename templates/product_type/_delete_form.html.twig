@@ -1,6 +1,64 @@
-<form method="post" action="{{ path('product_type_delete', {'id': product_type.id}) }}" onsubmit="return swal('Deleted Successfully!', '', 'success');">
+<form method="post" action="{{ path('product_type_delete', {'id': product_type.id}) }}" >
+
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product_type.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn btn-danger" id="delete">{{ button_label|default('Delete')}}</button>
 
 </form>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#delete').on('click',function(){
+            $.post( "/product/type/{id}", function( data ) {},
+            function (data){ alert("Success"+data)});
+        });
+
+    });
+</script>
+{#<script>$('#r').on('click',function ()#}
+{#    {#}
+
+{#        $.post( "/product/type/{id}", function( data ) {});#}
+{#       // $.ajax({#}
+{#       //     type: "POST",#}
+{#       //     url: "/product/type/{id}",#}
+{#       //#}
+{#       //     success: function (data){},#}
+{#    })</script>#}
+
+
+
+
+{#<script>$('#rn').on('click',function (e)#}
+{#    {      e.preventDefault();#}
+{#        swal({#}
+{#            title: "Are you sure?",#}
+{#            text: "Once deleted, you will not be able to recover this imaginary file!",#}
+{#            icon: "warning",#}
+{#            buttons: true,#}
+{#            dangerMode: true,#}
+{#            closeOnConfirm: false,#}
+{#        })#}
+{#            .then($.post( "/product/type/{id}", function( data) {}));#}
+{#    })</script>#}
+
+{#<script>#}
+{#    swal({#}
+{#        title: "Are you sure?",#}
+{#        text: "Once deleted, you will not be able to recover this imaginary file!",#}
+{#        icon: "warning",#}
+{#        buttons: true,#}
+{#        dangerMode: true,#}
+{#    })#}
+{#        .then((willDelete) => {#}
+{#            if (willDelete) {#}
+{#                swal("Poof! Your imaginary file has been deleted!", {#}
+{#                    icon: "success",#}
+{#                });#}
+{#            } else {#}
+{#                swal("Your imaginary file is safe!");#}
+{#            }#}
+{#        });#}
+{#</script>#}
