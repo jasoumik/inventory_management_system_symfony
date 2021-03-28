@@ -6,6 +6,7 @@ use App\Entity\ProductType;
 use App\Form\ProductTypeType;
 use App\Repository\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,10 @@ class ProductTypeController extends AbstractController
         ]);
     }
 
+
+
+
+
     #[Route('/new', name: 'product_type_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
@@ -32,7 +37,10 @@ class ProductTypeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($productType);
             $entityManager->flush();
+            if ($request->isXMLHttpRequest()) {
+                return new JsonResponse(['status'=>'success', 'message'=>'data has benn saved Successfully']);
 
+            }
             return $this->redirectToRoute('product_type_index');
         }
 
@@ -79,4 +87,35 @@ class ProductTypeController extends AbstractController
 
         return $this->redirectToRoute('product_type_index');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//for new product Type adding
+
+    #[Route('/newt', name: 'product_type_new_pt', methods: ['POST'])]
+    public function newAjaxRequest(Request $request):Response
+    {
+
+
+        if ($request->isXMLHttpRequest()) {
+            return new JsonResponse(['type'=>'error', 'message'=>'Success']);
+
+        }
+        return new Response('request not submitted!', 400);
+    }
+
+
+
+
+
 }

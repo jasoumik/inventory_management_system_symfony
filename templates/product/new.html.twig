@@ -8,5 +8,65 @@
 
     {{ include('product/_form.html.twig') }}
 
-    <a href="{{ path('product_index') }}">Back to List</a>
+    <a href="{{ path('product_index') }}" class="btn btn-warning btn-sm">Back to List</a>
+
+
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-sm mx-5" data-toggle="modal" data-target="#exampleModal">
+        Add Product Type
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please Add Product Type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form2) }}
+
+                    {{ form_widget(form2) }}
+                    <button id="btnSend" class="btn btn-success">{{ button_label|default('Save') }}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    {{ form_end(form2) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{#for product type adding by ajax request#}
+    <script>
+        $(document).ready(function () {
+            $("#btnSend").click(function (e) {
+                e.preventDefault();
+                // var data = $('#product_type_type').serialize();
+                $.ajax({
+                    url: '/product/type/new',
+                    type: 'POST',
+                    dataType : 'json',
+                    data:  $("#product_type_type").val(),
+                    success: function (result) {
+                        alert('success');
+                         console.log(data);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
+
+
 {% endblock %}
