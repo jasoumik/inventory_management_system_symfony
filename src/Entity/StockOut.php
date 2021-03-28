@@ -6,6 +6,7 @@ use App\Repository\StockOutRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Component\Validator\Constraints\ContainBalance;
+
 /**
  * @ORM\Entity(repositoryClass=StockOutRepository::class)
  * @ContainBalance
@@ -21,9 +22,8 @@ class StockOut
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank(payload={"severity"="error"})
      */
-    private $date;
+    private ?\DateTimeInterface $date = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class)
@@ -49,7 +49,7 @@ class StockOut
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
 

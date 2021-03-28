@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class StockOutType extends AbstractType
 {
@@ -20,6 +21,7 @@ class StockOutType extends AbstractType
             $builder
                 ->add('product', EntityType::class, [
                     'class'=>Product::class,
+                    'required'=>true,
                     'placeholder' => 'Select The Product First',
                     'constraints' => [
                         new NotBlank(),
@@ -31,12 +33,18 @@ class StockOutType extends AbstractType
                     DateType::class,
                     [
                         'widget' => 'single_text',
-                        'format' => 'dd/mm/yyyy',
+                        'format' => 'dd-mm-yyyy',
                         'html5' => false,
+                        'required'=>true,
+                        'constraints' => [
+                            new NotBlank(),
+                        ],
                         'attr' => [
                             'class' => 'input-datepicker',
                             'placeholder' => 'Select Date',
                             'style' => 'width:100%',
+                            'autocomplete' => 'off',
+                            'readonly' => true,
                         ],
                     ])
                 ->add('quantity', NumberType::class,

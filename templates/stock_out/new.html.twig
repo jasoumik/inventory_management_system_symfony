@@ -20,10 +20,11 @@
                  todayHighlight: true,
                  toggleActive: true,
                  autoclose: true,
-                 format: 'dd/mm/yyyy'
+                 format: 'dd-mm-yyyy'
              });
              $('.select').select2();
              $(".select").on('change',function() {
+
                  var id = $(this).val();
 
                  if(id) {
@@ -51,6 +52,7 @@
                      });
                  }else{
                      $("#msg").text('Please Select Product');
+
                  }
              });
 

@@ -41,7 +41,9 @@ class ContainBalanceValidator extends ConstraintValidator
         if (!$constraint instanceof ContainBalance) {
             throw new UnexpectedValueException($value, ContainBalance::CLASS_CONSTRAINT);
         }
-
+       if($value->getProduct()==null){
+           return true;
+       }
         $productId=$value->getProduct()->getId();
 
         $balance = $this->stockInRepository->getBalance($productId);
