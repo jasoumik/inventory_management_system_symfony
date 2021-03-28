@@ -25,7 +25,7 @@
              $('.select').select2();
              $(".select").on('change',function() {
                  var id = $(this).val();
-                 console.log(id);
+
                  if(id) {
                      $.ajax({
                          url: "/stock/out/balance/" + id,
@@ -33,11 +33,20 @@
                          dataType: "json",
                          success: function (data) {
                              var balance = data.balance;
-                             console.log(balance);
+
                              $("label[for='stock_out_quantity']").html("<b>Quantity</b> [Available Quantity is " + balance+"]").css('color', 'blue');
                              $( "label[for='stock_out_quantity'] b" )
                                  .css( "color", "black" )
-                             $("#hiddenBalance").text(balance)
+                           //  $("#hiddenBalance").text(balance);
+                           //   $("#hiddenBalance").attr("value",balance);
+                           //  var value1=0;
+
+
+                             jQuery.validator.addMethod("smaller", function(value) {
+                                 var oldValue=balance;
+                             //    console.log(value < oldValue);
+                                 return  (value <= oldValue);
+                             }, " Quantity must be smaller than " +balance );
                          }
                      });
                  }else{
@@ -45,6 +54,39 @@
                  }
              });
 
+
+
+              $(".stockOutForm").validate({
+                 rules:{
+
+                     'stock_out[date]':{
+                         required:true,
+                     },
+                     'stock_out[quantity]':{
+                         required:true,
+                         number: true,
+                         smaller : true,
+                     }
+                 },
+                 messages:{
+
+                     'stock_out[date]':{
+                         required:'Please Select Date',
+                     },
+                     'stock_out[quantity]':{
+                         required:'Please give a valid quantity',
+                         number:'Quantity has to be a number'
+                     }
+                 },
+                 errorPlacement: function (label, element) {
+                     label.addClass('mt-2 text-danger');
+                     label.insertAfter(element);
+                 },
+                 highlight: function (element, errorClass) {
+                     $(element).parent().addClass('has-danger')
+                     $(element).addClass('form-control-danger')
+                 }
+             });
          });
      </script>
  {% endblock %}

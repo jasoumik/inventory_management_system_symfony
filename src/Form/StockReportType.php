@@ -51,7 +51,7 @@ class StockReportType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => StockIn::class,
-            ]
-        );
+
+            ]);
     }
 }

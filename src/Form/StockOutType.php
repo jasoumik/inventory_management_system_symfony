@@ -45,7 +45,7 @@ class StockOutType extends AbstractType
                         'constraints' => [
                             new NotBlank(),
                         ],
-                        'attr' => ['class' => 'quantity','id'=>'quantity'],
+                        'attr' => ['class' => 'quantity'],
                     ])
             ;
         }
@@ -55,7 +55,7 @@ class StockOutType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => StockOut::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
+            'attr' => ['class' => 'form-control mt-2 bg-light stockOutForm',  'style' => 'width:75%'],
         ]);
     }
 }
