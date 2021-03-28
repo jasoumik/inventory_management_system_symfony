@@ -21,6 +21,20 @@ class StockOutController extends AbstractController
         ]);
     }
 
+    #[Route('/aggrid', name: 'stock_out_grid', methods: ['GET'])]
+    public function grid(StockOutRepository $stockOutRepository):Response
+    {
+        $stocks = [];
+        $stock = $stockOutRepository->findAll();
+        foreach ($stock as $row) {
+            $stocks[] = ['id' => $row->getId(),
+                    'name' => $row->getProduct()->getName(),
+                    'date' => $row->getDate(),
+                    'quantity'=>$row->getQuantity()];
+        }
+        return $this->json($stocks);
+    }
+
     #[Route('/new', name: 'stock_out_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
@@ -71,7 +85,7 @@ class StockOutController extends AbstractController
     #[Route('/{id}', name: 'stock_out_delete', methods: ['DELETE'])]
     public function delete(Request $request, StockOut $stockOut): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$stockOut->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $stockOut->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($stockOut);
             $entityManager->flush();
