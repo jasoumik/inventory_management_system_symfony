@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ stock_out.id }}</td>
                 <td>{{ stock_out.product.name }}</td>
-                <td>{{ stock_out.date ? stock_out.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ stock_out.date ? stock_out.date|date('d-m-Y') : '' }}</td>
                 <td>{{ stock_out.quantity }}</td>
                 <td>
                     <a href="{{ path('stock_out_show', {'id': stock_out.id}) }}">show</a>

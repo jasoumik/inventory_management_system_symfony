@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ stock_in.id }}</td>
                 <td>{{ stock_in.product.name }}</td>
-                <td>{{ stock_in.date ? stock_in.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ stock_in.date ? stock_in.date|date('d-m-Y') : '' }}</td>
                 <td>{{ stock_in.quantity }}</td>
                 <td>
                     <a href="{{ path('stock_in_show', {'id': stock_in.id}) }}">Show /</a>

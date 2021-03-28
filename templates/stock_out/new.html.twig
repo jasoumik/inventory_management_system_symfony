@@ -9,4 +9,40 @@
     {{ include('stock_out/_form.html.twig') }}
 
     <a href="{{ path('stock_out_index') }}">back to list</a>
+
 {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+         $(document).ready(function () {
+             $('.input-datepicker').datepicker({
+                 clearBtn: true,
+                 todayHighlight: true,
+                 toggleActive: true,
+                 autoclose: true,
+                 format: 'dd/mm/yyyy'
+             });
+             $('.select').select2();
+             $(".select").on('change',function() {
+                 var id = $(this).val();
+                 if(id) {
+                     $.ajax({
+                         url: "/stock/out/balance/" + id,
+                         type: "GET",
+                         dataType: "json",
+                         success: function (data) {
+                             var balance = data.balance;
+                             $("label[for='stock_out_quantity']").html("<b>Quantity</b> [Available Quantity is " + balance+"]").css('color', 'blue');
+                             $( "label[for='stock_out_quantity'] b" )
+                                 .css( "color", "black" )
+                         }
+                     });
+                 }else{
+                     $("#msg").text('Please Select Product');
+                 }
+             });
+
+         });
+     </script>
+ {% endblock %}
+
