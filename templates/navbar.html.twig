@@ -1,46 +1,61 @@
-
 {% block navbar %}
 
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/index"><img src="{{ asset('images/logo.png') }}" style="width: 45px"></a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-left: 16%;">
+            <a class="navbar-brand" href="/index"><img src="{{ asset('images/logo.png') }}" style="width: 50px"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto text-danger">
-                    <li class="nav-item active text-danger">
+                    <li class="nav-item active text-danger px-2">
                         <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/product/type/list">Product Type </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item px-2">
                         <a class="nav-link" href="/product">Product</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/stock/in">Stock In</a>
+
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Stock
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/stock/in">Stock In</a>
+                            <a class="dropdown-item" href="/stock/out">Stock Out</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/stock/out">Stock Out</a>
+
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/products">Report</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Report View </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/download/csv">Report Download</a>
-                    </li>
+
+                    {#                    <li class="nav-item dropdown px-2">#}
+                    {#                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                    {#                            Report#}
+                    {#                        </a>#}
+                    {#                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+                    {#                            <a class="dropdown-item" href="/products">View Report</a>#}
+                    {#                            <a class="dropdown-item" href="/download/csv">Download Report</a>#}
+                    {#                        </div>#}
+                    {#                    </li>#}
+
+
 
 
                     <li class="nav-item mx-5">
                         <span style="float:right;"> <p class="text-success mt-2 ">Welcome!  <b style="color:white;">{{app.user.name }}<b></p></span>
                     </li>
                     <li class="nav-item">
-                         {#  <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>#}
-                        <a href="{{path('app_logout')}}" class="btn btn-danger ">Log Out</a>
+                        {#  <span style="float:right;"> <p class="text-primary">Wellcome! <b>{{app.user.email }}<b></p></span>#}
+                        <a href="{{path('app_logout')}}" class="btn btn-danger mt-1 ">Log Out</a>
                     </li>
 
                 </ul>
@@ -48,4 +63,4 @@
         </nav>
     </div>
 
-    {% endblock %}
+{% endblock %}
