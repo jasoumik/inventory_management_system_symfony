@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    {{ include('navbar.html.twig') }}
     <style>
         .example-wrapper {
             margin: 1em auto;
@@ -15,7 +15,7 @@
             padding: 2px 6px;
         }
     </style>
-    {{ include('navbar.html.twig') }}
+
     <body class="hm-gradient">
 
     <main>
@@ -33,20 +33,21 @@
         </div>
     </main>
 
-    {% block javascripts %}
-        {{ parent() }}
-        <script>
-            $(document).ready(function () {
-                $('.input-datepicker').datepicker({
-                    clearBtn: true,
-                    todayHighlight: true,
-                    toggleActive: true,
-                    autoclose: true,
-                    format:'dd/mm/yyyy'
-                });
-            });
-        </script>
-    {% endblock %}
+
 
     </body>
 {% endblock %}
+  {% block javascripts %}
+      {{ parent() }}
+      <script>
+          $(document).ready(function () {
+              $('.input-datepicker').datepicker({
+                  clearBtn: true,
+                  todayHighlight: true,
+                  toggleActive: true,
+                  autoclose: true,
+                  format:'dd/mm/yyyy'
+              });
+          });
+      </script>
+  {% endblock %}

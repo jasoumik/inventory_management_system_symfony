@@ -36,15 +36,14 @@ class ProductTypeRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?ProductType
+    public function deleteAllProducts($productTypeId)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder()
+            ->delete('Product','p')
+            ->andWhere('p.product_type_id = :val')
+            ->setParameter('val', $productTypeId)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 }

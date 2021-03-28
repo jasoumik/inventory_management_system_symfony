@@ -17,31 +17,31 @@
         </div>
     </div>
 
-{#    <table class="table">#}
-{#        <thead>#}
-{#        <tr>#}
-{#            <th>Id</th>#}
-{#            <th>Name</th>#}
-{#            <th>actions</th>#}
-{#        </tr>#}
-{#        </thead>#}
-{#        <tbody>#}
-{#        {% for product in products %}#}
-{#            <tr>#}
-{#                <td>{{ product.id }}</td>#}
-{#                <td>{{ product.name }}</td>#}
-{#                <td>#}
-{#                    <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>#}
-{#                    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>#}
-{#                </td>#}
-{#            </tr>#}
-{#        {% else %}#}
-{#            <tr>#}
-{#                <td colspan="3">No records found</td>#}
-{#            </tr>#}
-{#        {% endfor %}#}
-{#        </tbody>#}
-{#    </table>#}
+    {#    <table class="table">#}
+    {#        <thead>#}
+    {#        <tr>#}
+    {#            <th>Id</th>#}
+    {#            <th>Name</th>#}
+    {#            <th>actions</th>#}
+    {#        </tr>#}
+    {#        </thead>#}
+    {#        <tbody>#}
+    {#        {% for product in products %}#}
+    {#            <tr>#}
+    {#                <td>{{ product.id }}</td>#}
+    {#                <td>{{ product.name }}</td>#}
+    {#                <td>#}
+    {#                    <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>#}
+    {#                    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>#}
+    {#                </td>#}
+    {#            </tr>#}
+    {#        {% else %}#}
+    {#            <tr>#}
+    {#                <td colspan="3">No records found</td>#}
+    {#            </tr>#}
+    {#        {% endfor %}#}
+    {#        </tbody>#}
+    {#    </table>#}
 
     <a href="{{ path('product_new') }}" class="btn btn-info">Create new</a>
     <br>
@@ -50,25 +50,26 @@
 
 
 
-    {% block javascripts %}
-        {{ parent() }}
-        <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-        <script>
-            const columnDefs = [
-                {headerName: "Id", field: "id", sortable:true},
-                {headerName: "Name", field: "name", sortable:true,},
-                {headerName: "Category", field: "productType", sortable:true,},
-            ];
-            const gridOptions = {
-                columnDefs: columnDefs,
-                rowSelection:'multiple'
-            };
-            document.addEventListener('DOMContentLoaded', function() {
-                const gridDiv = document.querySelector('#myGrid');
-                new agGrid.Grid(gridDiv, gridOptions);
-                agGrid.simpleHttpRequest({url: $('#myGrid').data('url')}).then(data=>{gridOptions.api.setRowData(data);
-                })
-            });
-        </script>
-    {% endblock %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+    <script>
+        const columnDefs = [
+            {headerName: "Id", field: "id", sortable:true},
+            {headerName: "Name", field: "name", sortable:true,},
+            {headerName: "Category", field: "productType", sortable:true,},
+        ];
+        const gridOptions = {
+            columnDefs: columnDefs,
+            rowSelection:'multiple'
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridDiv = document.querySelector('#myGrid');
+            new agGrid.Grid(gridDiv, gridOptions);
+            agGrid.simpleHttpRequest({url: $('#myGrid').data('url')}).then(data=>{gridOptions.api.setRowData(data);
+            })
+        });
+    </script>
 {% endblock %}

@@ -4,19 +4,26 @@
 
 {% block body %}
 
-
 <div class="bg-dark mt-3">
     <h3 class="p-3 text-light text-center">Inventory Management System </h3>
 </div>
-    <div style="margin-left: 50%">
-        <img src="{{ asset('images/kola.jpeg') }}" style="width: 180px;height: 180px">
-    </div>
 
-<div style="width: 50%; margin-left:25%;margin-top:8%;background:lightgray;">
-<div class="container">
-   <a href="{{path('register')}}" class="btn btn-info float-right my-2">Registration Now</a>
-<div>
 
+
+
+
+
+
+{#    {% if app.user %}#}
+{#        {{ include('navbar.html.twig') }}#}
+{#    {% elseif not app.user %}#}
+{#    {% endif %}#}
+
+
+
+
+
+<div style="width: 50%; margin-left:25%;margin-top:8%;background:lightgray;padding:25px;">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -28,7 +35,7 @@
         </div>
     {% endif %}
 
-    <h3 class=" mb-2 font-weight-normal ">Please sign in</h3>
+    <h3 class=" mb-2 font-weight-normal ">Please sign in Rubel</h3>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
@@ -43,8 +50,11 @@
     <button class="btn btn-md btn-primary mt-3" type="submit">
         Sign in
     </button>
+    <span class="float-right mt-3"><p style="margin-bottom: 0px;">if are you new ? please</p> <a href="{{path('register')}}" style="color:green;">Registration Now</a></span>
+
 </form>
 </div>
-</div>
-</div>
+
+
+
 {% endblock %}

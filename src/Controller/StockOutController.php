@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use App\Entity\StockIn;
 use App\Entity\StockOut;
 use App\Form\StockOutType;
 use App\Repository\StockOutRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/stock/out')]
@@ -39,15 +42,36 @@ class StockOutController extends AbstractController
     public function new(Request $request): Response
     {
         $stockOut = new StockOut();
+        dump($request->request->all());
+        //  $product= new Product();
         $form = $this->createForm(StockOutType::class, $stockOut);
         $form->handleRequest($request);
+        // $id=$this->getDoctrine()->getRepository(Product::class)->find();
+        //   $productId=$stockOut->getProduct()->getId();
+        // var_dump($id);
 
+        //$stockOutQuantity=$stockOut->getQuantity();
+
+        // $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->getBalance($productId);
         if ($form->isSubmitted() && $form->isValid()) {
+//            $productId=$stockOut->getProduct()->getId();
+//          //   var_dump($productId);
+//
+//            $stockOutQuantity=$stockOut->getQuantity();
+//
+//            $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->getBalance($productId);
+//            if ($stockOutQuantity<$stockInQuantity){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($stockOut);
             $entityManager->flush();
 
+
             return $this->redirectToRoute('stock_out_index');
+//            }else{
+//               // throw new BadRequestHttpException('Form isn\'t submitted');
+//                return $this->render('stock_out/error.html.twig');
+//            }
+
         }
 
         return $this->render('stock_out/new.html.twig', [
@@ -92,5 +116,17 @@ class StockOutController extends AbstractController
         }
 
         return $this->redirectToRoute('stock_out_index');
+    }
+
+    #[Route('/balance/{id}', name: 'balance')]
+    public function balance($id): Response
+    {
+        //  return
+        $balance = $this->getDoctrine()->getRepository(StockIn::class)->getBalance($id);
+
+        return $this->json([
+
+            'balance' => $balance
+        ]);
     }
 }
