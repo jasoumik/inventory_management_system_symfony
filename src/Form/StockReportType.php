@@ -16,7 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StockReportType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,9 +24,14 @@ class StockReportType extends AbstractType
                 DateType::class,
                 [
                     'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd',
-                    'attr' => ['class' => 'form-control', 'placeholder' => 'Select Date',
-                        'style' => 'width:100%'],
+                    'format'=>'dd/mm/yyyy',
+                    'html5' => false,
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'form-control input-datepicker',
+                        'placeholder' => 'Select Date',
+                        'style' => 'width:100%',
+                    ],
                 ]
             )
             ->add(
@@ -46,7 +50,6 @@ class StockReportType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => StockIn::class,
-
             ]
         );
     }

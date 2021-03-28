@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\Entity\StockIn;
 use App\Form\CsvDownloadFormType;
 use App\Form\StockReportType;
-use App\Form\StockType;
 use App\Repository\StockInRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("", name="index", methods={"GET","POST"})
+     * @Route("", name="index", methods={"GET"})
      */
-    public function index(StockInRepository $stockInRepository)
+    public function index():Response
     {
         $form = $this->createForm(
             StockReportType::class, null, [
@@ -34,9 +33,9 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/stocks", name="view")
+     * @Route("/reports", name="view", methods={"POST"})
      */
-    public function stockView(Request $request, StockInRepository $stockInRepository)
+    public function stockView(Request $request, StockInRepository $stockInRepository):Response
     {
         $stockIn = new StockIn();
         $form = $this->createForm(StockReportType::class, $stockIn);
@@ -50,9 +49,8 @@ class ProductsController extends AbstractController
 
     }
 
-    public function newView(array $data, $date)
+    public function newView(array $data, $date): Response
     {
-
         return $this->render('products/view.html.twig', [
             'products' => $data,
             'date' => $date

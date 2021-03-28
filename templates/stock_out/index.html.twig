@@ -3,44 +3,29 @@
 {% block title %}StockOut index{% endblock %}
 
 {% block body %}
-
+    {{ include('navbar.html.twig') }}
     <h1>StockOut index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>#</th>
+                <th>Id</th>
                 <th>Name</th>
-                <th>Product Type</th>
                 <th>Date</th>
                 <th>Quantity</th>
-                <th>Actions</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for i, stock_out in stock_outs %}
+        {% for stock_out in stock_outs %}
             <tr>
-                <td>{{ i+1 }}</td>
+                <td>{{ stock_out.id }}</td>
                 <td>{{ stock_out.product.name }}</td>
-                <td>{{ stock_out.product.producttype }}</td>
-                <td>{{ stock_out.date ? stock_out.date|date('d-m-Y')  }}</td>
+                <td>{{ stock_out.date ? stock_out.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ stock_out.quantity }}</td>
                 <td>
-                    <div class="dropdown dropdown-inline mr-4">
-                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="ki ki-bold-more-ver"></i>
-                            <b>...</b>
-                        </button>
-                        <div class="dropdown-menu">
-                            <div>
-                                <a href="{{ path('stock_out_edit', {'id': stock_out.id}) }}">edit</a>
-                            </div>
-                            <div>
-                                <a href="{{ path('stock_out_delete', {'id': stock_out.id}) }}">delete</a>
-                            </div>
-
-                        </div>
-
+                    <a href="{{ path('stock_out_show', {'id': stock_out.id}) }}">show</a>
+                    <a href="{{ path('stock_out_edit', {'id': stock_out.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
