@@ -25,6 +25,7 @@
              $('.select').select2();
              $(".select").on('change',function() {
                  var id = $(this).val();
+                 console.log(id);
                  if(id) {
                      $.ajax({
                          url: "/stock/out/balance/" + id,
@@ -32,9 +33,11 @@
                          dataType: "json",
                          success: function (data) {
                              var balance = data.balance;
+                             console.log(balance);
                              $("label[for='stock_out_quantity']").html("<b>Quantity</b> [Available Quantity is " + balance+"]").css('color', 'blue');
                              $( "label[for='stock_out_quantity'] b" )
                                  .css( "color", "black" )
+                             $("#hiddenBalance").text(balance)
                          }
                      });
                  }else{
