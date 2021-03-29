@@ -5,7 +5,7 @@
 {% block body %}
     {{ include('navbar.html.twig') }}
     <h1>StockOut index</h1>
-
+    <a href="{{ path('stock_out_new') }}" class="btn btn-info">Create new</a>
     <table class="table">
         <thead>
             <tr>
@@ -36,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('stock_out_new') }}" class="btn btn-info">Create new</a>
+
 {% endblock %}
