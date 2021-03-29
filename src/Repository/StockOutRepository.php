@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\StockOut;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,5 +48,17 @@ class StockOutRepository extends ServiceEntityRepository
             ->groupBy('product.name')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getStockInDate($id)
+    {
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery('select max(si.date) from stock_in si 
+                   
+                inner join product p on p.id = si.product_id
+                where  si.product_id=?',
+                [$id],
+                [ParameterType::INTEGER]
+            )->fetchOne();
     }
 }

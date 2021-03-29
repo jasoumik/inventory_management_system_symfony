@@ -21,7 +21,7 @@ class StockOutType extends AbstractType
             $builder
                 ->add('product', EntityType::class, [
                     'class'=>Product::class,
-                    'required'=>true,
+                    'required'=>false,
                     'placeholder' => 'Select The Product First',
                     'constraints' => [
                         new NotBlank(),
@@ -33,23 +33,23 @@ class StockOutType extends AbstractType
                     DateType::class,
                     [
                         'widget' => 'single_text',
-                        'format' => 'dd-mm-yyyy',
-                        'html5' => false,
-                        'required'=>true,
+                        //'format' => 'dd-mm-yyyy',
+//                        'html5' => true,
+                        'required'=>false,
                         'constraints' => [
                             new NotBlank(),
                         ],
-                        'attr' => [
-                            'class' => 'input-datepicker',
-                            'placeholder' => 'Select Date',
-                            'style' => 'width:100%',
-                            'autocomplete' => 'off',
-                            'readonly' => true,
-                        ],
+//                        'attr' => [
+//                            'class' => 'input-datepicker',
+//                            'placeholder' => 'Select Date',
+//                            'style' => 'width:100%',
+//                            'autocomplete' => 'off',
+//                            'readonly' => true,
+//                        ],
                     ])
                 ->add('quantity', NumberType::class,
                     [
-                        'required' => true,
+                        'required' => false,
                         'constraints' => [
                             new NotBlank(),
                         ],
