@@ -77,7 +77,23 @@ class ProductTypeController extends AbstractController
             $entityManager->flush();
         }
 
-//        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
-        return $this->redirectToRoute('product_type_index');
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+//        return $this->redirectToRoute('product_type_index');
     }
+
+    #[Route('/delete/{id}', name: 'delete_product_type_ajax', methods: ['POST'])]
+    public function deleteProductType(Request $request, ProductType $productType): Response
+    {
+        //if ($this->isCsrfTokenValid('delete' . $productType->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($productType);
+            $entityManager->flush();
+        //}
+
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+//                return $this->redirectToRoute('product_type_index');
+
+    }
+
+
 }

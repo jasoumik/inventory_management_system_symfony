@@ -79,4 +79,17 @@ class StockOutController extends AbstractController
 
         return $this->redirectToRoute('stock_out_index');
     }
+
+    #[Route('/delete/{id}', name: 'stock_out_delete_ajax', methods: ['POST'])]
+    public function deleteStockOut(Request $request, StockOut $stockOut): Response
+    {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($stockOut);
+            $entityManager->flush();
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+
+
+//        return $this->redirectToRoute('stock_out_index');
+    }
 }

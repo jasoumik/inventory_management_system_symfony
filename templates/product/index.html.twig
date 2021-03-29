@@ -12,14 +12,16 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Type</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for i, product in products %}
             <tr>
-                <td>{{ product.id }}</td>
+                <td class="sn">{{ i+1 }}</td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.productType }}</td>
                 <td>
                     <div class="dropdown dropdown-inline mr-4">
                         <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
