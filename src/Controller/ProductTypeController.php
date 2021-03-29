@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\ProductType;
+use App\Form\FormValidationException;
 use App\Form\ProductTypeType;
 use App\Repository\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/product/type')]
@@ -37,17 +41,52 @@ class ProductTypeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($productType);
             $entityManager->flush();
-            if ($request->isXMLHttpRequest()) {
-                return new JsonResponse(['status'=>'success', 'message'=>'data has benn saved Successfully']);
 
+            if ($request->isXMLHttpRequest()) {
+                return new JsonResponse(['status'=>'success','message'=>'data has been saved Successfully']);
             }
+
             return $this->redirectToRoute('product_type_index');
         }
+
+
+//        if($request->isXMLHttpRequest() && !$form->isValid()){
+//            $formErrors = $this->getFormErrors($form);
+//            return new JsonResponse(
+//                [
+//                    'status' => 400,
+//                    'errors' => $formErrors,
+//                    'form' => $form->getName(),
+//                ],
+//                400
+//            );
+//        }
 
         return $this->render('product_type/new.html.twig', [
             'product_type' => $productType,
             'form' => $form->createView(),
         ]);
+    }
+
+    private function getFormErrors(FormInterface $form)
+    {
+        $errors = [];
+
+        // Global
+        foreach ($form->getErrors() as $error) {
+            $errors[$form->getName()][] = $error->getMessage();
+        }
+
+        // Fields
+        foreach ($form as $child/* @var Form $child */) {
+            if (!$child->isValid()) {
+                foreach ($child->getErrors() as $error) {
+                    $errors[$child->getName()][] = $error->getMessage();
+                }
+            }
+        }
+
+        return $errors;
     }
 
     #[Route('/{id}', name: 'product_type_show', methods: ['GET'])]

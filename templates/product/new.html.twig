@@ -44,27 +44,35 @@
 
 
 
-{#for product type adding by ajax request#}
+
+
+
+
+    {#for product type adding by ajax request#}
     <script>
         $(document).ready(function () {
             $("#btnSend").click(function (e) {
                 e.preventDefault();
-                // var data = $('#product_type_type').serialize();
-                $.ajax({
-                    url: '/product/type/new',
-                    type: 'POST',
-                    dataType : 'json',
-                    data:  $("#product_type_type").val(),
-                    success: function (result) {
-                        alert('success');
-                         console.log(data);
-                    }
+                 var result = $('#product_type_type').serialize();
+                //var data = $('#product_type_type').val();
+
+                $.post( "/product/type/new", result, function( data ) {
+
+                      console.log(data.message);
+                     // window.location="/product/new";
+                     // alert(data.message);
+                    swal({
+                        title: "Good job!",
+                        text: data.message,
+                        icon: "success",
+                        button: "Aww yiss!",
+                    });
+                     setTimeout(function(){ window.location="/product/new";}, 1000);
                 });
+
             });
         });
     </script>
-
-
 
 
 
