@@ -48,12 +48,8 @@
             const gridOptions = {
                 columnDefs: [
                     {headerName: "Id", field: "id", sortable: true, maxWidth: 70},
-                    {headerName: "Name", field: "name", sortable: true,},
-                    {
-                        headerName: "Date", field: "date", sortable: true, cellRenderer: (data) => {
-                            return data.value ? (new Date(data.value)).toLocaleDateString() : '';
-                        }
-                    },
+                    {headerName: "Name", field: "name", sortable: true},
+                    {headerName: "Date", field: "date", sortable: true },
                     {headerName: "Quantity", field: "quantity", sortable: true, maxWidth: 120},
                     {
                         headerName: "action",
