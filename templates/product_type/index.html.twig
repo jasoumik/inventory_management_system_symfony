@@ -12,6 +12,7 @@
             <tr>
                 <th>#</th>
                 <th>Type</th>
+                <th>Type</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
         {% for i, product_type in product_types %}
             <tr>
                 <td>{{ i+1 }}</td>
+                <td>{{ product_type.id }}</td>
                 <td>{{ product_type.type }}</td>
                 <td>
                     <div class="dropdown dropdown-inline mr-4">
@@ -31,7 +33,42 @@
                                 <a href="{{ path('product_type_edit', {'id': product_type.id}) }}">edit</a>
                             </div>
                             <div>
-                                <a href="{{ path('product_type_delete', {'id': product_type.id}) }}">delete</a>
+                                <button class="delete"  value="{{product_type.id}}" >delete</button>
+
+                                <script>
+
+
+                                    $(document).ready(function () {
+
+                                        $('.delete').on('click', function confirmDelete() {
+                                          var id= $('.delete').val();
+                                          console.log(id);
+                                            swal({
+                                                title: "Are you sure?",
+                                                icon: "warning",
+                                                buttons: true,
+                                                dangerMode: true,
+
+                                            }).then((willDelete) => {
+                                                if (willDelete) {
+
+                                                    $.post("/product/type/delete/"+id, function (data) {
+                                                        swal(data.message, {
+                                                            icon: "success",
+                                                            timer:1000,
+                                                            button:false,
+
+
+                                                        }).then(function (){ window.location='/product/type/list'})
+                                                    })
+
+                                                } else {
+                                                    swal("Your file is safe!");
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
                             </div>
 
                         </div>
@@ -45,6 +82,7 @@
         {% endfor %}
         </tbody>
     </table>
+
 
     <a href="{{ path('product_type_new') }}" class="btn btn-info">Create new</a>
 {% endblock %}
