@@ -2,29 +2,46 @@
 
 {% block body %}
     {{ include('navbar.html.twig') }}
-
+    <!--MDB Tables-->
     <div class="container">
+
+
+
         <div class="card">
+
             <div class="card-body">
+
+                <!-- Grid row -->
+
+                <a class="float-right mt-7" href="{{ path('product_list_download',{date:date|date('Y-m-d')})}}">Export as CSV</a>
+                <br>
+                <a class="float-right mt-4" href="/products">Check Another Report</a>
+                <!-- Grid row -->
+                <!--Table-->
                 <h3 class="text-dark">Stock Report As on <span class="btn-warning">{{ date|date('d-m-Y') }}</span></h3>
                 <table class="table table-hover table-responsive mb-0 ">
+
                     <thead class="bg-secondary text-light">
-                    <tr>
+                    <tr >
+
                         <th class="th-lg"><a>Product Name</a></th>
                         <th class="th-lg">Product Type</th>
                         <th class="th-lg">Stock In</th>
                         <th class="th-lg">Stock Out</th>
                         <th class="th-lg">Balance</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     {% for product in products %}
                         <tr>
+
                             <td>{{ product.name }}</td>
                             <td>{{ product.producttype }}</td>
                             <td>{{ product.stockin }}</td>
                             <td>{{ product.stockout }}</td>
                             <td>{{ product.stockin - product.stockout }}</td>
+
                         </tr>
                     {% else %}
                         <tr>
@@ -33,9 +50,24 @@
                     {% endfor %}
 
                     </tbody>
+                    <!--Table body-->
                 </table>
+
             </div>
+
         </div>
+
+
+
+
+
+
+
+
     </div>
+    <!--MDB Tables-->
+
+
+
 
 {% endblock %}

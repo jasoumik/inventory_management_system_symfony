@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Entity\ProductType;
 use App\Form\ProductTypeType;
 use App\Repository\ProductTypeRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,13 +71,15 @@ class ProductTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'product_type_delete', methods: ['DELETE'])]
-    public function delete(Request $request, ProductType $productType): Response
+    #[Route('/{id}',  name: 'product_type_delete', methods: ['DELETE'])]
+    public function delete(Request $request, ProductType $productType, EntityManagerInterface $em): Response
     {
+
         if ($this->isCsrfTokenValid('delete'.$productType->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($productType);
-            $entityManager->flush();
+             $this->getDoctrine()->getRepository(Product::class)->deleteAllProducts($productType->getId());
+             $em->remove($productType);
+             $em->flush();
+
         }
 
         return $this->redirectToRoute('product_type_index');

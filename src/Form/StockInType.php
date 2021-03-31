@@ -10,35 +10,32 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class StockInType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date',
-                DateType::class,
-                [
-                        'widget' => 'single_text',
-                        'format'=>'dd/mm/yyyy',
-                        'html5' => false,
-                        'attr' => [
-                            'class' => 'input-datepicker',
-                            'placeholder' => 'Select Date',
-                            'style' => 'width:100%',
-                        ],
+            ->add('product', EntityType::class, [
+                'class'=>Product::class,
+                'placeholder' => 'Select The Product First',
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
             ])
             ->add('quantity', NumberType::class)
-            ->add('product', EntityType::class, [
-                'class' => Product::class
-            ]);
+        ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => StockIn::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light', 'style' => 'width:75%'],
+            'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
         ]);
     }
 }
