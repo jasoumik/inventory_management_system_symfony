@@ -9,8 +9,8 @@
 
     <button class="btn btn-success" id="b">{{ button_label|default('Create')}} </button>
     {{ form_end(form) }}
-
-
+ {% block javascripts %}
+     {{ parent() }}
     <script>$('#b').on('click',function ()
         {
             swal({
@@ -20,5 +20,6 @@
             })
         })
     </script>
+ {% endblock %}
     <a href="{{ path('product_type_index') }}">Back to list</a>
 {% endblock %}

@@ -35,44 +35,11 @@
                             <div>
                                 <button class="delete"  value="{{product_type.id}}" >delete</button>
 
-                                <script>
 
-
-                                    $(document).ready(function () {
-
-                                        $('.delete').on('click', function confirmDelete() {
-                                          var id= $('.delete').val();
-                                          console.log(id);
-                                            swal({
-                                                title: "Are you sure?",
-                                                icon: "warning",
-                                                buttons: true,
-                                                dangerMode: true,
-
-                                            }).then((willDelete) => {
-                                                if (willDelete) {
-
-                                                    $.post("/product/type/delete/"+id, function (data) {
-                                                        swal(data.message, {
-                                                            icon: "success",
-                                                            timer:1000,
-                                                            button:false,
-
-
-                                                        }).then(function (){ window.location='/product/type/list'})
-                                                    })
-
-                                                } else {
-                                                    swal("Your file is safe!");
-                                                }
-                                            });
-                                        });
-                                    });
-                                </script>
                             </div>
 
                         </div>
-
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -86,3 +53,40 @@
 
     <a href="{{ path('product_type_new') }}" class="btn btn-info">Create new</a>
 {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+
+
+         $(document).ready(function () {
+             let id;
+             $('.delete').on('click', function confirmDelete() {
+                  id= parseInt($('.delete').val());
+                 console.log(id);
+                 swal({
+                     title: "Are you sure?",
+                     icon: "warning",
+                     buttons: true,
+                     dangerMode: true,
+
+                 }).then((willDelete) => {
+                     if (willDelete) {
+
+                         $.post("/product/type/delete/"+id, function (data) {
+                             swal(data.message, {
+                                 icon: "success",
+                                 timer:1000,
+                                 button:false,
+
+
+                             }).then(function (){ window.location='/product/type/list'})
+                         })
+
+                     } else {
+                         swal("Your file is safe!");
+                     }
+                 });
+             });
+         });
+     </script>
+ {% endblock %}
