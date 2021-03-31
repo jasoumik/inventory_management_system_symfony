@@ -93,4 +93,17 @@ class StockInController extends AbstractController
 
         return $this->redirectToRoute('stock_in_index');
     }
+
+    #[Route('/delete/{id}', name: 'stock_in_delete_ajax', methods: ['POST'])]
+    public function deleteStockIn(Request $request, StockIn $stockIn): Response
+    {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($stockIn);
+            $entityManager->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+
+
+    }
 }

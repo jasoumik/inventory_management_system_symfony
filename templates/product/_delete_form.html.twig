@@ -1,33 +1,35 @@
 <form method="post" action="{{ path('product_delete', {'id': product.id}) }}">
     <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token"  value="{{ csrf_token('delete' ~ product.id) }}">
-    <button class="btn btn-danger" id="deleteButton">Delete</button>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+    <button class="btn btn-danger" id="delete">Delete</button>
 </form>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $('.deleteButton').click(function (e) {
+        $('#delete').on('click', function (e) {
             e.preventDefault();
+            swal({
+                title: "Are you sure?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.post("{{ path('delete_product_ajax', {'id': product.id}) }}", function (data) {
+                            swal(data.message, {
+                                icon: "success",
+                               timer:1000,
+                                button:false,
 
-            id = $(this).attr('id');
+                            }).then(function (){ window.location='/product/'})
+                        })
 
-            $.ajax({
-
-                url: '/product/'+id,
-                data: {'id': id},
-                method: 'post',
-                success: function (data, response) {
-
-                    if (response == 'hello') {
-                        alert('Success');
+                    } else {
+                        swal("Your file is safe!");
                     }
-                },
-                error: function () {
-
-                },
-            });
-
+                });
         });
-    })
+    });
 </script>

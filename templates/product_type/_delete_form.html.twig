@@ -1,7 +1,42 @@
-<form method="post" action="{{ path('product_type_delete', {'id': product_type.id}) }}" onsubmit="return swal('Deleted Successfully!', '', 'success');">
+
+<form method="post" action="{{ path('product_type_delete', {'id': product_type.id}) }}" >
+
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product_type.id) }}">
-    <button class="btn" id="deleteButton">Delete</button>
+    <button class="btn btn-danger" id="delete">{{ button_label|default('Delete')}}</button>
 
 </form>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#delete').on('click', function () {
+
+            swal({
+                title: "Are you sure?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+
+            }).then((willDelete) => {
+                    if (willDelete) {
+                        $.post("{{ path('delete_product_type_ajax', {'id': product_type.id}) }}", function (data) {
+                            swal(data.message, {
+                                icon: "success",
+                                timer:1000,
+                                button:false,
+
+
+                            }).then(function (){ window.location='/product/type/list'})
+                        })
+
+                    } else {
+                        swal("Your file is safe!");
+                    }
+                });
+        });
+    });
+</script>
 

@@ -1,47 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product index{% endblock %}
-    {% block stylesheets %}
-        {{ parent() }}
-        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
-        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
-    {% endblock %}
 
 {% block body %}
-    {{ include('navbar.html.twig') }}
-    <div class="container">
-        <h3 class=" text-dark p-2 mt-2">Products List</h3>
-        <div class="d-flex justify-content-center mb-5 ">
-            <div id="myGrid" data-url="{{ path('product_grid') }}" class="ag-theme-alpine" style="height:300px;
-        width:620px;"></div>
-        </div>
-    </div>
+
+
+    <h1>Product</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i, product in products %}
+            <tr>
+                <td class="sn">{{ i+1 }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.productType }}</td>
+                <td>
+                    <div class="dropdown dropdown-inline mr-4">
+                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ki ki-bold-more-ver"></i>
+                            <b>...</b>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div>
+                                <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+                            </div>
+                            <div>
+                                <a href="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
+                            </div>
+                        </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
     <a href="{{ path('product_new') }}" class="btn btn-info">Create new</a>
     <br>
 
-    <a href="{{ path('stock_in_index') }}">Stock In</a>
-
-
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-    <script>
-        const columnDefs = [
-            {headerName: "Id", field: "id", sortable:true, maxWidth: 70},
-            {headerName: "Name", field: "name", sortable:true,},
-            {headerName: "Category", field: "productType", sortable:true,},
-        ];
-        const gridOptions = {
-            columnDefs: columnDefs,
-            rowSelection:'multiple'
-        };
-        document.addEventListener('DOMContentLoaded', function() {
-            const gridDiv = document.querySelector('#myGrid');
-            new agGrid.Grid(gridDiv, gridOptions);
-            agGrid.simpleHttpRequest({url: $('#myGrid').data('url')}).then(data=>{gridOptions.api.setRowData(data);
-            })
-        });
-    </script>
+{#    <a href="{{ path('stock_in_index') }}">Stock In</a>#}
 {% endblock %}
