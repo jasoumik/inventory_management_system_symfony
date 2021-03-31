@@ -24,7 +24,7 @@ class StockReportType extends AbstractType
                 DateType::class,
                 [
                     'widget' => 'single_text',
-                    'format' => 'dd/mm/yyyy',
+                    'format' => 'dd/MM/yyyy',
                     'html5' => false,
                     'required' => true,
                     'attr' => [
