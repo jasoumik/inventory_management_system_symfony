@@ -37,7 +37,7 @@ class ContainBalanceValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        dump($value->getProduct());
+       // dump($value->getProduct());
         if (!$constraint instanceof ContainBalance) {
             throw new UnexpectedValueException($value, ContainBalance::CLASS_CONSTRAINT);
         }

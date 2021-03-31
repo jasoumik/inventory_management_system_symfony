@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Report{% endblock %}
 {% block body %}
     {{ include('navbar.html.twig') }}
     <style>
@@ -46,7 +46,7 @@
                   todayHighlight: true,
                   toggleActive: true,
                   autoclose: true,
-                  format:'dd/mm/yyyy'
+                  format:'dd/MM/yyyy'
               });
           });
       </script>

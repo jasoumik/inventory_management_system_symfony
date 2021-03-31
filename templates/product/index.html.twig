@@ -17,38 +17,10 @@
         </div>
     </div>
 
-    {#    <table class="table">#}
-    {#        <thead>#}
-    {#        <tr>#}
-    {#            <th>Id</th>#}
-    {#            <th>Name</th>#}
-    {#            <th>actions</th>#}
-    {#        </tr>#}
-    {#        </thead>#}
-    {#        <tbody>#}
-    {#        {% for product in products %}#}
-    {#            <tr>#}
-    {#                <td>{{ product.id }}</td>#}
-    {#                <td>{{ product.name }}</td>#}
-    {#                <td>#}
-    {#                    <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>#}
-    {#                    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>#}
-    {#                </td>#}
-    {#            </tr>#}
-    {#        {% else %}#}
-    {#            <tr>#}
-    {#                <td colspan="3">No records found</td>#}
-    {#            </tr>#}
-    {#        {% endfor %}#}
-    {#        </tbody>#}
-    {#    </table>#}
-
     <a href="{{ path('product_new') }}" class="btn btn-info">Create new</a>
     <br>
 
     <a href="{{ path('stock_in_index') }}">Stock In</a>
-
-
 
 
 {% endblock %}
@@ -57,7 +29,7 @@
     <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
     <script>
         const columnDefs = [
-            {headerName: "Id", field: "id", sortable:true},
+            {headerName: "Id", field: "id", sortable:true, maxWidth: 70},
             {headerName: "Name", field: "name", sortable:true,},
             {headerName: "Category", field: "productType", sortable:true,},
         ];

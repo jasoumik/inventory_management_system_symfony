@@ -29,7 +29,7 @@ class StockInController extends AbstractController
         foreach ($newProduct as $row) {
             $product [] = ['id' => $row->getId(),
                 'name' => $row->getProduct()->getName(),
-                'date' => $row->getDate(),
+                'date' => $row->getDate()->format('d-m-Y'),
                 'quantity' => $row->getQuantity()];
         }
         return $this->json($product);

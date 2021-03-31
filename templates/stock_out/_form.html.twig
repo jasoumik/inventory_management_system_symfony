@@ -2,7 +2,8 @@
    <p id="msg"></p>
 <input type="text" id="hiddenBalance" value="" hidden>
     {{ form_widget(form) }}
-    <button class="btn save  btn-success" id="r">{{ button_label|default('Save') }}
+
+    <button class="btn save  btn-success" id="action">{{ button_label|default('Save') }}
 
     </button>
 {{ form_end(form) }}
