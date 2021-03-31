@@ -21,7 +21,19 @@ class StockOutController extends AbstractController
             'stock_outs' => $stockOutRepository->findAll(),
         ]);
     }
-
+    #[Route('/aggrid', name: 'stock_out_grid', methods: ['GET'])]
+    public function grid(StockOutRepository $stockOutRepository):Response
+    {
+        $stocks = [];
+        $stock = $stockOutRepository->findAll();
+        foreach ($stock as $row) {
+            $stocks[] = ['id' => $row->getId(),
+                'name' => $row->getProduct()->getName(),
+                'date' => $row->getDate(),
+                'quantity'=>$row->getQuantity()];
+        }
+        return $this->json($stocks);
+    }
     #[Route('/new', name: 'stock_out_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
