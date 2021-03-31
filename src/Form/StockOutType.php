@@ -39,13 +39,13 @@ class StockOutType extends AbstractType
                         'constraints' => [
                             new NotBlank(),
                         ],
-//                        'attr' => [
-//                            'class' => 'input-datepicker',
-//                            'placeholder' => 'Select Date',
-//                            'style' => 'width:100%',
-//                            'autocomplete' => 'off',
-//                            'readonly' => true,
-//                        ],
+                        'attr' => [
+                            'class' => 'input-datepicker',
+                            'placeholder' => 'Select Date',
+                            'style' => 'width:100%',
+                            'autocomplete' => 'off',
+                            'readonly' => false,
+                        ],
                     ])
                 ->add('quantity', NumberType::class,
                     [
