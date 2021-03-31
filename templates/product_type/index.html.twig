@@ -33,7 +33,7 @@
                                 <a href="{{ path('product_type_edit', {'id': product_type.id}) }}">edit</a>
                             </div>
                             <div>
-                                <button class="delete"  value="{{product_type.id}}" >delete</button>
+                                <button id="delete"  value="{{product_type.id}}" >delete</button>
 
 
                             </div>
@@ -59,9 +59,9 @@
 
 
          $(document).ready(function () {
-             let id;
-             $('.delete').on('click', function confirmDelete() {
-                  id= parseInt($('.delete').val());
+
+             $('#delete').on('click', function confirmDelete() {
+                 var id= parseInt($('#delete').val());
                  console.log(id);
                  swal({
                      title: "Are you sure?",
