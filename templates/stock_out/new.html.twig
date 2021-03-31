@@ -14,6 +14,7 @@
  {% block javascripts %}
      {{ parent() }}
      <script>
+         var inc = 1;
          $(document).ready(function () {
              // $('.input-datepicker').datepicker({
              //     clearBtn: true,
@@ -22,6 +23,7 @@
              //     autoclose: true,
              //     format: 'dd-mm-yyyy'
              // });
+             let balance = 0;
              $('.select').select2();
              $(".select").on('change',function() {
 
@@ -33,7 +35,7 @@
                          type: "GET",
                          dataType: "json",
                          success: function (data) {
-                             var balance = data.balance;
+                             balance = data.balance;
 
                              $("label[for='stock_out_quantity']").html("<b>Quantity</b> [Available Quantity is " + balance+"]").css('color', 'blue');
                              $( "label[for='stock_out_quantity'] b" )
@@ -41,13 +43,7 @@
                            //  $("#hiddenBalance").text(balance);
                               $("#hiddenBalance").attr("value",balance);
                            //  var value1=0;
-                             if(balance){
-                                 jQuery.validator.addMethod("smaller", function(value) {
-                                     var oldValue=balance;
-                                     //    console.log(value < oldValue);
-                                     return  (value <= oldValue);
-                                 }, " Quantity must be smaller than " +balance );
-                             }
+
                          }
                      });
                  }else{
@@ -57,7 +53,7 @@
              });
              $('.stockOutForm').submit(function (e){
 
-                var balance= parseInt($('#hiddenBalance').val());
+              //   console.log(balance);
 
                  if ( $( ".quantity" ).val()> balance ) {
                      $( "#msg1" ).text( " Quantity must be smaller than "+balance).show().css( "color", "red" );
@@ -71,13 +67,35 @@
                  e.preventDefault();
 
              });
-             $("#stock_out_quantity").change(function(){
-                 $( "#msg1" ).hide();
-             });
-             // $("#stock_out_quantity").keyup(function(){
+             // $("#stock_out_quantity").change(function(){
+             //     ++inc;
+             //     console.log('change:',inc);
              //     $( "#msg1" ).hide();
              // });
              //
+             // $("#stock_out_quantity").keyup(function(){
+             //     ++inc;
+             //     console.log('up:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+             //
+             // $("#stock_out_quantity").keydown(function(){
+             //     ++inc;
+             //     console.log('down:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+             $("#stock_out_quantity").focus(function(){
+                 // ++inc;
+                 // console.log('focus:',inc);
+                 $( "#msg1" ).hide();
+             });
+             //
+             // $("#stock_out_quantity").blur(function(){
+             //     ++inc;
+             //     console.log('blur:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+
 
          });
      </script>
