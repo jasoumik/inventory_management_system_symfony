@@ -34,6 +34,9 @@ class ProductsController extends AbstractController
 
     /**
      * @Route("/reports", name="view", methods={"POST"})
+     * @param Request $request
+     * @param StockInRepository $stockInRepository
+     * @return Response
      */
     public function stockView(Request $request, StockInRepository $stockInRepository):Response
     {
@@ -70,10 +73,8 @@ class ProductsController extends AbstractController
             //$row['date']=$row['date']->format('d-m-Y');
             $row['balance']=$row['stockin']-$row['stockout'];
 
-
             fputcsv($fp, $row, ',');
         }
-
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');

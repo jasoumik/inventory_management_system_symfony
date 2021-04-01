@@ -28,7 +28,7 @@ class StockIn
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Product::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;

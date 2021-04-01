@@ -8,40 +8,47 @@
 
 {% block body %}
     {{ include('navbar.html.twig') }}
+
     <div class="container">
         <h3 class=" text-dark p-2 mt-2">Stock In List</h3>
-        <div class="d-flex justify-content-center mb-5 ">
+
+        <a href="{{ path('stock_in_new') }}" class="btn btn-info float-right" style="margin-right:160px;">Create
+            new</a>
+
+        <div class="d-flex justify-content-center mb-2 mt-5 ">
             <div id="myGrid" data-url="{{ path('stock_in_grid') }}" class="ag-theme-alpine" style="height:300px;
-        width:750px;"></div>
+        width:750px;">
+
+            </div>
         </div>
     </div>
 
+    <a href="{{ path('product_index') }}" class="btn btn-secondary m-1">Product Home</a>
 
-
-     <a href="{{ path('stock_in_new') }}" class="btn btn-info">Create new</a>
-     <br>
-     <a href="{{ path('product_index') }}">Product Home</a>
 {% endblock %}
 
     {% block javascripts %}
         {{ parent() }}
         <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
         <script>
+            function BtnCellRenderer() {
+            }
 
-            function BtnCellRenderer() {}
-            BtnCellRenderer.prototype.init = function(params) {
+            BtnCellRenderer.prototype.init = function (params) {
                 this.params = params;
+                console.log(params);
 
                 this.eGui = document.createElement("div");
-                this.eGui.innerHTML = '<button type="button" class="btn btn-warning">Edit</button>';
+                this.eGui.innerHTML = '<button type="button" class="btn btn-warning">Edit</button> ' +
+                    '<button type="button" class="btn btn-danger">Delete</button> ';
 
                 this.btnClickedHandler = this.btnClickedHandler.bind(this);
                 this.eGui.addEventListener("click", this.btnClickedHandler);
             };
-            BtnCellRenderer.prototype.getGui = function() {
+            BtnCellRenderer.prototype.getGui = function () {
                 return this.eGui;
             };
-            BtnCellRenderer.prototype.btnClickedHandler = function() {
+            BtnCellRenderer.prototype.btnClickedHandler = function () {
                 this.params.clicked(this.params.value);
             };
 
@@ -49,29 +56,30 @@
                 columnDefs: [
                     {headerName: "Id", field: "id", sortable: true, maxWidth: 70},
                     {headerName: "Name", field: "name", sortable: true},
-                    {headerName: "Date", field: "date", sortable: true },
+                    {headerName: "Date", field: "date", sortable: true},
                     {headerName: "Quantity", field: "quantity", sortable: true, maxWidth: 120},
                     {
-                        headerName: "action",
+                        headerName: "Action",
                         field: "id",
-                        minWidth: 150,
+                        minWidth: 70,
                         cellRenderer: 'btnCellRenderer',
                         cellRendererParams: {
-                            clicked: function(params) {
-                                location.href="/stock/in/"+params+"/edit"
+                            clicked: function (params) {
+                                console.log(params)
+                                location.href = "/stock/in/" + params + "/edit"
                             }
                         },
-                    }
+                    },
                 ],
                 defaultColDef: {
-                    flex:1,
-                    editable: true
+                    flex: 1,
+
                 },
+                rowHeight: 50,
                 components: {
-                    btnCellRenderer: BtnCellRenderer
+                    btnCellRenderer: BtnCellRenderer,
                 }
             };
-
             document.addEventListener('DOMContentLoaded', function () {
                 const gridDiv = document.querySelector('#myGrid');
                 new agGrid.Grid(gridDiv, gridOptions);
