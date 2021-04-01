@@ -30,10 +30,10 @@
                         </button>
                         <div class="dropdown-menu">
                             <div>
-                                <a href="{{ path('product_type_edit', {'id': product_type.id}) }}">edit</a>
+                                <a href="{{ path('product_type_edit', {'id': product_type.id}) }}" class=" btn btn-warning" >Edit</a>
                             </div>
                             <div>
-                                <button id="delete"  value="{{product_type.id}}" >delete</button>
+                                <a href="{{ path('delete_product_type_ajax', {'id': product_type.id}) }}" id="{{ product_type.id }}"   class="delete btn btn-danger">Delete</a>
 
 
                             </div>
@@ -60,9 +60,13 @@
 
          $(document).ready(function () {
 
-             $('#delete').on('click', function confirmDelete() {
-                 var id= parseInt($('#delete').val());
-                 console.log(id);
+             $('.delete').on('click', function confirmDelete(e) {
+
+                 e.preventDefault();
+                 var id = $(this).attr('id');
+               //  console.log(id);
+
+                 //alert(clickedID);
                  swal({
                      title: "Are you sure?",
                      icon: "warning",
