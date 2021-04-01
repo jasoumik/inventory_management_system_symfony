@@ -35,7 +35,7 @@ class StockInType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => StockIn::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
+            'attr' => ['class' => 'bg-dark',  'style' => 'width:75%'],
         ]);
     }
 }

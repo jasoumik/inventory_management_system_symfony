@@ -63,7 +63,7 @@ class StockOutType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => StockOut::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light stockOutForm',  'style' => 'width:75%'],
+            'attr' => ['class' => 'bg-dark stockOutForm',  'style' => 'width:75%'],
         ]);
     }
 }

@@ -5,8 +5,34 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
+
+
+
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import './styles/date-picker.css';
+
 
 // start the Stimulus application
-import './bootstrap';
+
+// require jQuery normally
+import $ from 'jquery';
+import jquery from 'jquery';
+global.$=$;
+import 'select2';
+import 'bootstrap';
+import 'bootstrap-datepicker';
+
+import './js/CustomDate';
+
+$('#b').on('click',function ()
+{
+    swal({
+        title: "Created Successfully!",
+        text: "",
+        icon: "success",
+    })
+})
+
+// create global $ and jQuery variables
+

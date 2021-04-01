@@ -3,23 +3,17 @@
 {% block title %}New ProductType{% endblock %}
 
 {% block body %}
-{#    {{ include('navbar.html.twig') }}#}
+   {{ include('navbar.html.twig') }}
     {{ form_start(form) }}
     {{ form_widget(form) }}
 
     <button class="btn btn-success" id="b">{{ button_label|default('Create')}} </button>
     {{ form_end(form) }}
- {% block javascripts %}
-     {{ parent() }}
-    <script>$('#b').on('click',function ()
-        {
-            swal({
-                title: "Created Successfully!",
-                text: "",
-                icon: "success",
-            })
-        })
-    </script>
- {% endblock %}
+
     <a href="{{ path('product_type_index') }}">Back to list</a>
 {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+     </script>
+ {% endblock %}
