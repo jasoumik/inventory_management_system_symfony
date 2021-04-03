@@ -3,10 +3,101 @@
 {% block title %}New StockOut{% endblock %}
 
 {% block body %}
-
+    {{ include('navbar.html.twig') }}
     <h1>Create new StockOut</h1>
 
     {{ include('stock_out/_form.html.twig') }}
 
     <a href="{{ path('stock_out_index') }}">back to list</a>
+
 {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+         var inc = 1;
+         $(document).ready(function () {
+             // $('.input-datepicker').datepicker({
+             //     clearBtn: true,
+             //     todayHighlight: true,
+             //     toggleActive: true,
+             //     autoclose: true,
+             //     format: 'dd-mm-yyyy'
+             // });
+             let balance = 0;
+             $('.select').select2();
+             $(".select").on('change',function() {
+
+                 var id = $(this).val();
+
+                 if(id) {
+                     $.ajax({
+                         url: "/stock/out/balance/" + id,
+                         type: "GET",
+                         dataType: "json",
+                         success: function (data) {
+                             balance = data.balance;
+
+                             $("label[for='stock_out_quantity']").html("<b>Quantity</b> [Available Quantity is " + balance+"]").css('color', 'blue');
+                             $( "label[for='stock_out_quantity'] b" )
+                                 .css( "color", "black" )
+                           //  $("#hiddenBalance").text(balance);
+                              $("#hiddenBalance").attr("value",balance);
+                           //  var value1=0;
+
+                         }
+                     });
+                 }else{
+                     $("#msg").text('Please Select Product');
+
+                 }
+             });
+             $('.stockOutForm').submit(function (e){
+
+              //   console.log(balance);
+
+                 if ( $( ".quantity" ).val()> balance ) {
+                     $( "#msg1" ).text( " Quantity must be smaller than "+balance).show().css( "color", "red" );
+
+
+                 } else{
+                     return;
+                 }
+
+
+                 e.preventDefault();
+
+             });
+             // $("#stock_out_quantity").change(function(){
+             //     ++inc;
+             //     console.log('change:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+             //
+             // $("#stock_out_quantity").keyup(function(){
+             //     ++inc;
+             //     console.log('up:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+             //
+             // $("#stock_out_quantity").keydown(function(){
+             //     ++inc;
+             //     console.log('down:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+             $("#stock_out_quantity").focus(function(){
+                 // ++inc;
+                 // console.log('focus:',inc);
+                 $( "#msg1" ).hide();
+             });
+             //
+             // $("#stock_out_quantity").blur(function(){
+             //     ++inc;
+             //     console.log('blur:',inc);
+             //     $( "#msg1" ).hide();
+             // });
+
+
+         });
+     </script>
+ {% endblock %}
+

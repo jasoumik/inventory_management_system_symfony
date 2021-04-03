@@ -6,12 +6,14 @@ use App\Entity\ProductType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProductTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('type')
         ;
     }
@@ -21,6 +23,7 @@ class ProductTypeType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProductType::class,
             'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
+
         ]);
     }
 }

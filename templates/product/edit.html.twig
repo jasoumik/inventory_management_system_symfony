@@ -3,11 +3,24 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
-
+    {{ include('navbar.html.twig') }}
     <h3 style="color:black;">Edit Product</h3>
        <a href="{{ path('product_index') }}" class="btn btn-info float-right">back to list</a>
 
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('product/_form.html.twig',{'button_label': 'Update'}) }}
+
+        <script>
+            $(document).ready(function() {
+                $('#s').on('click', function () {
+                    swal({
+                        title: "Updated Successfully!",
+                        text: "",
+                        icon: "success",
+
+                    })
+                })
+            })
+        </script>
 
 {% endblock %}

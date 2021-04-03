@@ -3,26 +3,39 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-
+    {{ include('navbar.html.twig') }}
 
     <h1>Product</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Name</th>
+                <th>Type</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for i, product in products %}
             <tr>
-                <td>{{ product.id }}</td>
+                <td class="sn">{{ i+1 }}</td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.productType }}</td>
                 <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">Show /</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+                    <div class="dropdown dropdown-inline mr-4">
+                        <button type="button" class="btn btn-light-primary btn-icon btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ki ki-bold-more-ver"></i>
+                            <b>...</b>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div>
+                                <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+                            </div>
+                            <div>
+                                <a href="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
+                            </div>
+                        </div>
                 </td>
             </tr>
         {% else %}

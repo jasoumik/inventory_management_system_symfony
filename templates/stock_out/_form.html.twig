@@ -1,4 +1,12 @@
 {{ form_start(form) }}
+   <p id="msg"></p>
+
+<p id="msg2"></p>
+
+<input type="text" id="hiddenBalance" value="" hidden>
     {{ form_widget(form) }}
-    <button class="btn  btn-success">{{ button_label|default('Save') }}</button>
+<p id="msg1"></p>
+    <button class="btn save  btn-success" id="action" >{{ button_label|default('Save') }}
+
+    </button>
 {{ form_end(form) }}

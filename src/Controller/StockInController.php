@@ -21,6 +21,20 @@ class StockInController extends AbstractController
         ]);
     }
 
+    #[Route('/aggrid', name: 'stock_in_grid', methods: ['GET'])]
+    public function grid(StockInRepository $stockInRepository): Response
+    {
+        $product = [];
+        $newProduct = $stockInRepository->findAll();
+        foreach ($newProduct as $row) {
+            $product [] = ['id' => $row->getId(),
+                'name' => $row->getProduct()->getName(),
+                'date' => $row->getDate(),
+                'quantity' => $row->getQuantity()];
+        }
+        return $this->json($product);
+    }
+
     #[Route('/new', name: 'stock_in_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
@@ -71,12 +85,25 @@ class StockInController extends AbstractController
     #[Route('/{id}', name: 'stock_in_delete', methods: ['DELETE'])]
     public function delete(Request $request, StockIn $stockIn): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$stockIn->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $stockIn->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($stockIn);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('stock_in_index');
+    }
+
+    #[Route('/delete/{id}', name: 'stock_in_delete_ajax', methods: ['POST'])]
+    public function deleteStockIn(Request $request, StockIn $stockIn): Response
+    {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($stockIn);
+            $entityManager->flush();
+
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+
+
     }
 }

@@ -32,12 +32,14 @@ class ProductType
         return $this->type;
     }
 
+
     public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
+
     /**
      * Generates the magic method
      *

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\StockIn;
 use App\Entity\StockOut;
 use App\Form\StockOutType;
 use App\Repository\StockOutRepository;
@@ -20,7 +21,19 @@ class StockOutController extends AbstractController
             'stock_outs' => $stockOutRepository->findAll(),
         ]);
     }
-
+    #[Route('/aggrid', name: 'stock_out_grid', methods: ['GET'])]
+    public function grid(StockOutRepository $stockOutRepository):Response
+    {
+        $stocks = [];
+        $stock = $stockOutRepository->findAll();
+        foreach ($stock as $row) {
+            $stocks[] = ['id' => $row->getId(),
+                'name' => $row->getProduct()->getName(),
+                'date' => $row->getDate(),
+                'quantity'=>$row->getQuantity()];
+        }
+        return $this->json($stocks);
+    }
     #[Route('/new', name: 'stock_out_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
@@ -78,5 +91,30 @@ class StockOutController extends AbstractController
         }
 
         return $this->redirectToRoute('stock_out_index');
+    }
+
+    #[Route('/delete/{id}', name: 'stock_out_delete_ajax', methods: ['POST'])]
+    public function deleteStockOut(Request $request, StockOut $stockOut): Response
+    {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($stockOut);
+            $entityManager->flush();
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+
+
+//        return $this->redirectToRoute('stock_out_index');
+    }
+
+    #[Route('/balance/{id}', name: 'balance')]
+    public function balance($id): Response
+    {
+        //  return
+        $balance = $this->getDoctrine()->getRepository(StockIn::class)->getBalance($id);
+
+        return $this->json([
+
+            'balance' => $balance
+        ]);
     }
 }

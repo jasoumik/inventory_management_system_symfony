@@ -1,42 +1,89 @@
 {% extends 'base.html.twig' %}
-
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
+    {% endblock %}
 {% block title %}StockIn index{% endblock %}
 
 {% block body %}
+    {{ include('navbar.html.twig') }}
+    <div class="container">
+        <h3 class=" text-dark p-2 mt-2">Stock List</h3>
+        <div class="d-flex justify-content-center mb-5 ">
+            <div id="myGrid" data-url="{{ path('stock_in_grid') }}" class="ag-theme-alpine" style="height:300px;
+        width:750px;"></div>
+        </div>
+    </div>
 
-    <h1>StockIn Info</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Quantity</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for stock_in in stock_ins %}
-            <tr>
-                <td>{{ stock_in.id }}</td>
-                <td>{{ stock_in.product.name }}</td>
-                <td>{{ stock_in.date ? stock_in.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ stock_in.quantity }}</td>
-                <td>
-                    <a href="{{ path('stock_in_show', {'id': stock_in.id}) }}">Show /</a>
-                    <a href="{{ path('stock_in_edit', {'id': stock_in.id}) }}">Edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('stock_in_new') }}" class="btn btn-info">Create new</a>
-    <br>
-    <a href="{{ path('product_index') }}">Product Home</a>
+     <a href="{{ path('stock_in_new') }}" class="btn btn-info">Create new</a>
+     <br>
+     <a href="{{ path('product_index') }}">Product Home</a>
 {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+        <script>
+
+            function BtnCellRenderer() {}
+            BtnCellRenderer.prototype.init = function(params) {
+                this.params = params;
+
+                this.eGui = document.createElement("div");
+                this.eGui.innerHTML = '<button type="button" class="btn btn-warning">Edit</button>';
+
+                this.btnClickedHandler = this.btnClickedHandler.bind(this);
+                this.eGui.addEventListener("click", this.btnClickedHandler);
+            };
+            BtnCellRenderer.prototype.getGui = function() {
+                return this.eGui;
+            };
+            BtnCellRenderer.prototype.btnClickedHandler = function() {
+                this.params.clicked(this.params.value);
+            };
+
+            const gridOptions = {
+                columnDefs: [
+                    {headerName: "Id", field: "id", sortable: true, maxWidth: 70},
+                    {headerName: "Name", field: "name", sortable: true,},
+                    {
+                        headerName: "Date", field: "date", sortable: true, cellRenderer: (data) => {
+                            return data.value ? (new Date(data.value)).toLocaleDateString() : '';
+                        }
+                    },
+                    {headerName: "Quantity", field: "quantity", sortable: true, maxWidth: 120},
+                    {
+                        headerName: "action",
+                        field: "id",
+                        minWidth: 150,
+                        cellRenderer: 'btnCellRenderer',
+                        cellRendererParams: {
+                            clicked: function(params) {
+                                location.href="/stock/in/"+params+"/edit"
+                            }
+                        },
+                    }
+                ],
+                defaultColDef: {
+                    flex:1,
+                    editable: true
+                },
+                components: {
+                    btnCellRenderer: BtnCellRenderer
+                }
+            };
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const gridDiv = document.querySelector('#myGrid');
+                new agGrid.Grid(gridDiv, gridOptions);
+                agGrid.simpleHttpRequest({url: $('#myGrid').data('url')}).then(data => {
+                    gridOptions.api.setRowData(data);
+                })
+            });
+        </script>
+    {% endblock %}
+
+
