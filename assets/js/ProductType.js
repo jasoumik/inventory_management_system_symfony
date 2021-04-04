@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import "popper.js";
 
     $(document).ready(function () {
 

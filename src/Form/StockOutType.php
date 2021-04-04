@@ -33,8 +33,8 @@ class StockOutType extends AbstractType
                     DateType::class,
                     [
                         'widget' => 'single_text',
-                        //'format' => 'dd-mm-yyyy',
-//                        'html5' => true,
+                        'format' => 'dd/MM/yyyy',
+                        'html5' => false,
                         'required'=>false,
                         'constraints' => [
                             new NotBlank(),

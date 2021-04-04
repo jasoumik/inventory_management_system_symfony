@@ -18,10 +18,14 @@ import './styles/date-picker.css';
 // require jQuery normally
 import $ from 'jquery';
 import jquery from 'jquery';
-global.$=$;
+ //const $ = require('jquery');
+ global.$=$;
+ // import './js/popper.js';
+ // import '@popperjs/core';
+import 'bootstrap';
 import 'select2';
 import "ag-grid";
-import 'bootstrap';
+
 
 import 'bootstrap-datepicker';
 
@@ -35,6 +39,7 @@ $('#b').on('click',function ()
         icon: "success",
     })
 })
+
 
 // create global $ and jQuery variables
 

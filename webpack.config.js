@@ -1,6 +1,7 @@
+
+
 const Encore = require('@symfony/webpack-encore');
 
-const $ = require('jquery');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -9,12 +10,12 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    .autoProvideVariables({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-
-    })
+    // .autoProvideVariables({
+    //     $: 'jquery',
+    //     jQuery: 'jquery',
+    //     'window.jQuery': 'jquery',
+    //
+    // })
     // directory where compiled assets will be stored
 
     .setOutputPath('public/build/')
@@ -30,11 +31,11 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    .addEntry('select2', './assets/js/select2.js')
+    // .addEntry('select2', './assets/js/select2.js')
 
-    .addEntry('popper', './assets/js/popper.js')
-    .addEntry('bootstrap', './assets/js/bootstrap.js')
-    .addEntry('date-picker', './assets/js/date-picker.js')
+    // .addEntry('popper', './assets/js/popper.js')
+    // .addEntry('bootstrap', './assets/js/bootstrap.js')
+    // .addEntry('date-picker', './assets/js/date-picker.js')
     .addEntry('swal', './assets/js/swal.js')
     .addEntry('pt', './assets/js/ProductType.js')
     .addEntry('customDate', './assets/js/CustomDate.js')
@@ -85,7 +86,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    // .autoProvidejQuery()
+     .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
