@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use App\Repository\ProductTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductTypeRepository::class)
+ * @UniqueEntity("type")
+ *
  */
 class ProductType
 {
@@ -18,7 +22,8 @@ class ProductType
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
+     *
      */
     private $type;
 
