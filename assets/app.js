@@ -20,7 +20,9 @@ import $ from 'jquery';
 import jquery from 'jquery';
 global.$=$;
 import 'select2';
+import "ag-grid";
 import 'bootstrap';
+
 import 'bootstrap-datepicker';
 
 import './js/CustomDate';
