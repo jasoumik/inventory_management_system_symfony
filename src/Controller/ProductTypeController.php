@@ -34,13 +34,51 @@ class ProductTypeController extends AbstractController
             $entityManager->persist($productType);
             $entityManager->flush();
 
+            if ($request->isXMLHttpRequest()) {
+                return new JsonResponse(['status'=>'success','message'=>'data has been saved Successfully']);
+            }
+
             return $this->redirectToRoute('product_type_index');
         }
+
+
+//        if($request->isXMLHttpRequest() && !$form->isValid()){
+//            $formErrors = $this->getFormErrors($form);
+//            return new JsonResponse(
+//                [
+//                    'status' => 400,
+//                    'errors' => $formErrors,
+//                    'form' => $form->getName(),
+//                ],
+//                400
+//            );
+//        }
 
         return $this->render('product_type/new.html.twig', [
             'product_type' => $productType,
             'form' => $form->createView(),
         ]);
+    }
+
+    private function getFormErrors(FormInterface $form)
+    {
+        $errors = [];
+
+        // Global
+        foreach ($form->getErrors() as $error) {
+            $errors[$form->getName()][] = $error->getMessage();
+        }
+
+        // Fields
+        foreach ($form as $child/* @var Form $child */) {
+            if (!$child->isValid()) {
+                foreach ($child->getErrors() as $error) {
+                    $errors[$child->getName()][] = $error->getMessage();
+                }
+            }
+        }
+
+        return $errors;
     }
 
     #[Route('/{id}', name: 'product_type_show', methods: ['GET'])]
@@ -87,15 +125,35 @@ class ProductTypeController extends AbstractController
     public function deleteProductType(Request $request, ProductType $productType): Response
     {
         //if ($this->isCsrfTokenValid('delete' . $productType->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($productType);
-            $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($productType);
+        $entityManager->flush();
         //}
 
         return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
 //                return $this->redirectToRoute('product_type_index');
 
     }
+
+
+
+
+//for new product Type adding
+
+    #[Route('/newt', name: 'product_type_new_pt', methods: ['POST'])]
+    public function newAjaxRequest(Request $request):Response
+    {
+
+
+        if ($request->isXMLHttpRequest()) {
+            return new JsonResponse(['type'=>'error', 'message'=>'Success']);
+
+        }
+        return new Response('request not submitted!', 400);
+    }
+
+
+
 
 
 }
