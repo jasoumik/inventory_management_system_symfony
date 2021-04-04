@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-
 use App\Form\ProductType;
 use App\Form\ProductTypeType;
 use App\Repository\ProductRepository;
@@ -40,14 +39,12 @@ class ProductController extends AbstractController
     #[Route('/new', name: 'product_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        $productType = new \App\Entity\ProductType();
-
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
-        $form2 = $this->createForm(ProductTypeType::class, $productType);
-
+        $form2 = $this->createForm(ProductTypeType::class, null);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
@@ -56,24 +53,11 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('product_index');
         }
 
-
-
-
-        $form2->handleRequest($request);
-        if ($form2->isSubmitted() && $form2->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($productType);
-            $entityManager->flush();
-            return $this->redirectToRoute('product_new');
-        }
-
-
-
-
         return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
-            'form2'=> $form2->createView(),
+            'form2' => $form2->createView(),
+
         ]);
     }
 
