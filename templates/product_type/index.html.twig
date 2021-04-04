@@ -33,7 +33,7 @@
                                 <a href="{{ path('product_type_edit', {'id': product_type.id}) }}">edit</a>
                             </div>
                             <div>
-                                <button class="delete"  value="{{product_type.id}}" >delete</button>
+                                <a href="{{ path('delete_product_type_ajax', {'id': product_type.id}) }}" id="{{ product_type.id }}"   class="delete btn btn-danger">Delete</a>
 
 
                             </div>
@@ -62,7 +62,7 @@
 
                  e.preventDefault();
                  var id = $(this).attr('id');
-                 //  console.log(id);
+                   console.log(id);
 
                  //alert(clickedID);
                  Swal.fire({

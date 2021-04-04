@@ -46,7 +46,8 @@
 
 
 
-
+{% block javascripts %}
+    {{ parent() }}
 
     {#for product type adding by ajax request#}
     <script>
@@ -75,6 +76,6 @@
     </script>
 
 
-
+{% endblock %}
 
 {% endblock %}

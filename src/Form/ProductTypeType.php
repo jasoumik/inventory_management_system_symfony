@@ -17,6 +17,7 @@ class ProductTypeType extends AbstractType
         $builder
             ->add('type',TextType::class,[
             'label' => 'Product Type',
+                'required'=>false,
                 'constraints' => [
                     new NotBlank(),
                 ],
