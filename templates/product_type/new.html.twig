@@ -3,22 +3,41 @@
 {% block title %}New ProductType{% endblock %}
 
 {% block body %}
-{#    {{ include('navbar.html.twig') }}#}
+    {{ include('navbar.html.twig') }}
     {{ form_start(form) }}
     {{ form_widget(form) }}
 
-    <button class="btn btn-success" id="b">{{ button_label|default('Create')}} </button>
+    <button class="b btn-success">{{ button_label|default('Create')}} </button>
     {{ form_end(form) }}
  {% block javascripts %}
      {{ parent() }}
-    <script>$('#b').on('click',function ()
-        {
-            swal({
-                title: "Created Successfully!",
-                text: "",
-                icon: "success",
+    <script>
+        $(document).ready(function() {
+            $('.b').on('click', function () {
+                var input = $('#product_type_type');
+                if (input.val() ===""||input.val() ==={{ product_type.type }}) {
+                    Swal.fire({
+                        title: "Error",
+                        icon: "error",
+                    });return false;
+
+
+                } else
+                Swal.fire({
+                        title:"Created Successfully!",
+                        icon:"success",
+                       timer:1500,
+                       position: 'top-end',
+                    showConfirmButton: false,
+                     });
+                // swal({
+                //     title: "Created Successfully!",
+                //     text: "",
+                //     icon: "success",
+                // })
             })
         })
+
     </script>
  {% endblock %}
     <a href="{{ path('product_type_index') }}">Back to list</a>
