@@ -46,6 +46,9 @@
 
 
 
+
+
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
 
@@ -54,28 +57,28 @@
         $(document).ready(function () {
             $("#btnSend").click(function (e) {
                 e.preventDefault();
-                 var result = $('#product_type_type').serialize();
+                var result = $('#product_type_type').serialize();
                 //var data = $('#product_type_type').val();
 
                 $.post( "/product/type/new", result, function( data ) {
 
-                      console.log(data.message);
-                     // window.location="/product/new";
-                     // alert(data.message);
-                    swal({
-                        title: "Good job!",
-                        text: data.message,
-                        icon: "success",
-                        button: "Aww yiss!",
+                    console.log(data.message);
+                    // window.location="/product/new";
+                    // alert(data.message);
+                    Swal.fire({
+                        title:"Product Type Created Successfully!",
+                        icon:"success",
+                        text:data.message,
+                        timer:1500,
+                        position: 'top-end',
+                        showConfirmButton: false,
                     });
-                     setTimeout(function(){ window.location="/product/new";}, 1000);
+                    setTimeout(function(){ window.location="/product/new";}, 1000);
                 });
 
             });
         });
     </script>
 
-
-{% endblock %}
 
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/product/type')]
 class ProductTypeController extends AbstractController
@@ -140,17 +141,17 @@ class ProductTypeController extends AbstractController
 
 //for new product Type adding
 
-    #[Route('/newt', name: 'product_type_new_pt', methods: ['POST'])]
-    public function newAjaxRequest(Request $request):Response
-    {
-
-
-        if ($request->isXMLHttpRequest()) {
-            return new JsonResponse(['type'=>'error', 'message'=>'Success']);
-
-        }
-        return new Response('request not submitted!', 400);
-    }
+//    #[Route('/newt', name: 'product_type_new_pt', methods: ['POST'])]
+//    public function newAjaxRequest(Request $request):Response
+//    {
+//
+//
+//        if ($request->isXMLHttpRequest()) {
+//            return new JsonResponse(['type'=>'error', 'message'=>'Success']);
+//
+//        }
+//        return new Response('request not submitted!', 400);
+//    }
 
 
 
