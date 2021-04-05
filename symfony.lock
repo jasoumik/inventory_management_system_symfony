@@ -574,5 +574,17 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "xiidea/easy-audit": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "bfbd9fd29e2ee1cb0e22b2626624dd919436235d"
+        },
+        "files": [
+            "./config/packages/xiidea_easy_audit.yaml"
+        ]
     }
 }

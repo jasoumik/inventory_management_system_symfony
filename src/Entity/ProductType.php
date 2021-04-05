@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ProductTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Xiidea\EasyAuditBundle\Annotation\SubscribeDoctrineEvents;
+use Xiidea\EasyAuditBundle\Model\BaseAuditLog;
 /**
  * @ORM\Entity(repositoryClass=ProductTypeRepository::class)
+ * @SubscribeDoctrineEvents(events = "created")
  */
 class ProductType
 {

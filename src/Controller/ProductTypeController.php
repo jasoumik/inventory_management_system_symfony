@@ -2,14 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\AuditLog;
 use App\Entity\Product;
 use App\Entity\ProductType;
+use App\Entity\User;
 use App\Form\ProductTypeType;
 use App\Repository\ProductTypeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use \Datetime;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 #[Route('/product/type')]
 class ProductTypeController extends AbstractController
@@ -26,6 +32,7 @@ class ProductTypeController extends AbstractController
     public function new(Request $request): Response
     {
         $productType = new ProductType();
+
         $form = $this->createForm(ProductTypeType::class, $productType);
         $form->handleRequest($request);
 
@@ -33,6 +40,20 @@ class ProductTypeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($productType);
             $entityManager->flush();
+
+
+//
+//            $user = $user->getUsername();
+//
+//            $audit= new AuditLog();
+//
+//            $date = new DateTime(date('Y-m-d H:i:s'));
+//
+//            $audit->setDate($date);
+//            $audit->setUserName($user);
+//            $em=$this->getDoctrine()->getManager();
+//            $em->persist($audit);
+//            $em->flush();
 
             return $this->redirectToRoute('product_type_index');
         }

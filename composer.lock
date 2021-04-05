@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "467828704259bd1b4b4b8dbed68fdab1",
+    "content-hash": "7d9b672b0c8f1920e9a3170b9c1bf703",
     "packages": [
         {
             "name": "components/jquery",
@@ -8387,6 +8387,75 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "xiidea/easy-audit",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xiidea/EasyAuditBundle.git",
+                "reference": "63a2a95793699b708eda709ce88aa39830386895"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xiidea/EasyAuditBundle/zipball/63a2a95793699b708eda709ce88aa39830386895",
+                "reference": "63a2a95793699b708eda709ce88aa39830386895",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/log": "^1",
+                "symfony/framework-bundle": ">=5.0 <6.0.0",
+                "symfony/security-bundle": ">=5.0 <6.0.0"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.2 <4.0",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Xiidea\\EasyAuditBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roni Saha",
+                    "email": "roni.cse@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "EasyAuditBundle Community",
+                    "homepage": "https://github.com/xiidea/EasyAuditBundle/contributors"
+                }
+            ],
+            "description": "A Symfony Bundle To Log Selective Events. It is easy to configure and easy to customize for your need",
+            "homepage": "http://xiidea.github.io/EasyAuditBundle/",
+            "keywords": [
+                "Audit Log",
+                "Event Log",
+                "Symfony2",
+                "audit trail",
+                "psr-3",
+                "symfony3",
+                "symfony4",
+                "symfony5"
+            ],
+            "support": {
+                "issues": "https://github.com/xiidea/EasyAuditBundle/issues",
+                "source": "https://github.com/xiidea/EasyAuditBundle"
+            },
+            "time": "2021-02-27T10:08:12+00:00"
         }
     ],
     "packages-dev": [

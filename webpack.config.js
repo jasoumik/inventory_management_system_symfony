@@ -31,13 +31,12 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('main', './assets/main.ts')
     // .addEntry('select2', './assets/js/select2.js')
 
-    // .addEntry('popper', './assets/js/popper.js')
-    // .addEntry('bootstrap', './assets/js/bootstrap.js')
-    // .addEntry('date-picker', './assets/js/date-picker.js')
+
     .addEntry('swal', './assets/js/swal.js')
-    .addEntry('pt', './assets/js/ProductType.js')
+
     .addEntry('customDate', './assets/js/CustomDate.js')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -76,7 +75,10 @@ Encore
     //.enableSassLoader()
 
     // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+    .enableTypeScriptLoader()
+    // .enableTypeScriptLoader(function(tsConfig){
+    //     tsConfig.silent = false
+    // })
 
     // uncomment if you use React
     //.enableReactPreset()
@@ -90,3 +92,4 @@ Encore
 ;
 
 module.exports = Encore.getWebpackConfig();
+

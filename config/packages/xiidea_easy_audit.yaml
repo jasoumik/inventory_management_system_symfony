@@ -1,0 +1,5 @@
+# Read the documentation: http://xiidea.github.io/EasyAuditBundle/
+xiidea_easy_audit:
+    audit_log_class: App\Entity\AuditLog
+    default_logger: true
+    user_property : null
