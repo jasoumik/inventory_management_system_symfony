@@ -11,7 +11,7 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Type</th>
+                <th>ID</th>
                 <th>Type</th>
                 <th>Actions</th>
             </tr>
@@ -49,12 +49,37 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <div id="myGrid"  data-url="{{ path('log') }}" style="height: 200px; width:500px;" class="ag-theme-alpine"></div>
 
     <a href="{{ path('product_type_new') }}" class="btn btn-info">Create new</a>
 {% endblock %}
-{# {% block javascripts %}#}
-{#     {{ parent() }}#}
-{#     <script type="text/javascript" src="{{ asset('js/ProductType.js') }}"></script>#}
-{#     {{ encore_entry_script_tags('pt') }}#}
-{# {% endblock %}#}
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+     <script>
+
+
+
+         const gridOptions = {
+             columnDefs: [
+                 {headerName: "Type", field: "type", sortable: true, maxWidth: 70},
+                 {headerName: "Description", field: "desc", sortable: true},
+                 {headerName: "Date", field: "date", sortable: true}
+             ],
+             defaultColDef: {
+                 flex:1,
+                 editable: true
+             },
+
+         };
+
+         document.addEventListener('DOMContentLoaded', function () {
+             const gridDiv = document.querySelector('#myGrid');
+             new agGrid.Grid(gridDiv, gridOptions);
+             agGrid.simpleHttpRequest({url: $('#myGrid').data('url')}).then(data => {
+                 gridOptions.api.setRowData(data);
+             })
+         });
+         </script>
+ {% endblock %}

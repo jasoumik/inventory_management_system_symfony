@@ -2,19 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\AuditLog;
+
 use App\Entity\Product;
 use App\Entity\ProductType;
-use App\Entity\User;
+
 use App\Form\ProductTypeType;
+use App\Repository\AuditLogRepository;
 use App\Repository\ProductTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use \Datetime;
-use Symfony\Component\Security\Core\User\UserInterface;
+
 
 
 #[Route('/product/type')]
@@ -71,6 +71,23 @@ class ProductTypeController extends AbstractController
             'product_type' => $productType,
         ]);
     }
+
+//    #[Route('/audit/log', name: 'log', methods: ['GET'])]
+//    public function grid(AuditLogRepository $auditLogRepository): Response
+//    {
+//        $log = [];
+//        $auditLog = $auditLogRepository->findAll();
+//        foreach ($auditLog as $row) {
+//            $log [] = [
+//                'type' => $row->getType(),
+//                'desc'=>$row->getDescription(),
+//                'date'=>$row->getEventTime()->format("F j, Y"),
+//            ];
+//        }
+//        return $this->json(
+//            $log
+//        );
+//    }
 
     #[Route('/{id}/edit', name: 'product_type_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ProductType $productType): Response

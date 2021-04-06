@@ -44,10 +44,15 @@ class AuditLog extends BaseAuditLog
     /**
      * Time Of Event
      * @var \DateTime
-     * @ORM\Column(name="event_time", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     protected $eventTime;
 
+    /**
+     * @var string
+     * @ORM\Column(name="creaed_by", type="string", length=255)
+     */
+    protected $user;
 
     /**
      * @var string

@@ -5,6 +5,7 @@ declare const $;
  const Swal = require('sweetalert2');
 
 $(document).ready(function () {
+
     $('.delete').on('click', function confirmDelete(e) {
         e.preventDefault();
         var id = $(this).attr('id');

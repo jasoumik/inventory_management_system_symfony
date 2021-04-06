@@ -6,7 +6,8 @@
 
     {% block stylesheets %}
 
-
+        <link  type="text/css" rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine-dark.css">
         {{ encore_entry_link_tags('app') }}
         <link href="{{ asset('datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
     {% endblock %}
@@ -30,7 +31,7 @@
 
 
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 {#    <script src="{{ asset('datepicker/js/bootstrap-datepicker.min.js') }}"></script>#}
     {{ encore_entry_script_tags('swal') }}

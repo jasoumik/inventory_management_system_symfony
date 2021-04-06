@@ -2,4 +2,6 @@
 xiidea_easy_audit:
     audit_log_class: App\Entity\AuditLog
     default_logger: true
-    user_property : null
+    user_property : username
+    events :                                                   #Optional
+        - event.

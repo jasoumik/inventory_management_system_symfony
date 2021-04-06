@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Audit Log!{% endblock %}
+
+{% block body %}
+    {{ include('navbar.html.twig') }}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+</style>
+
+<div class="example-wrapper">
+    <h1 style="color: #0a0a0a">Audit Log</h1>
+    <div id="myGrid"  data-url="{{ path('log') }}" style="height: 500px; width:750px;" class="ag-theme-alpine-dark"></div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script>
+
+
+
+        const gridOptions = {
+            columnDefs: [
+                {headerName: "Type", field: "type", sortable: true},
+                {headerName: "Description", field: "desc", sortable: true,minWidth: 400},
+                {headerName: "Date", field: "date", sortable: true}
+            ],
+            defaultColDef: {
+                flex:5,
+                editable: true
+            },
+
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const gridDiv = document.querySelector('#myGrid');
+            new agGrid.Grid(gridDiv, gridOptions);
+            agGrid.simpleHttpRequest({url: $('#myGrid').data('url')}).then(data => {
+                gridOptions.api.setRowData(data);
+            })
+        });
+    </script>
+{% endblock %}
