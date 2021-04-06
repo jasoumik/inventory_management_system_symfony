@@ -82,7 +82,7 @@ class StockInController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'stock_in_delete', methods: ['DELETE'])]
+    #[Route('/{id}', name: 'stock_in_delete', methods: ['DELETE'])]
     public function delete(Request $request, StockIn $stockIn): Response
     {
         dump($stockIn);
@@ -92,7 +92,8 @@ class StockInController extends AbstractController
             $entityManager->flush();
 
         }
-
         return $this->redirectToRoute('stock_in_index');
     }
+
+
 }
