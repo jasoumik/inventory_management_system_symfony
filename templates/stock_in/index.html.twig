@@ -22,30 +22,32 @@
         </div>
     </div>
 
-    <a href="{{ path('product_index') }}" class="btn btn-secondary m-1">Product Home</a>
+{#    <a href="{{ path('product_index') }}" class="btn btn-secondary m-1">Product Home</a>#}
 
 {% endblock %}
 
     {% block javascripts %}
         {{ parent() }}
         <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
-
             class BtnCellRenderer {
                 init(params) {
-                    console.log(params)
+
                     this.eGui = document.createElement("div");
                     this.eGui.innerHTML = '<button type="button" class="edit btn btn-warning">Edit</button> ' +
-                        '<button type="button" class="delete btn btn-danger">Delete</button>';
+                        '<button type="button" id="delete" class="delete btn btn-danger">Delete</button>';
 
                     this.eEdit = this.eGui.querySelector('.edit');
                     this.eDelete = this.eGui.querySelector('.delete');
 
-                    this.eventListener = () => location.href = "/stock/in/" + params.data.id + "/edit";
+                    this.eventListener = () => {
+                        location.href = "/stock/in/" + params.data.id + "/edit"
+                    };
                     this.eEdit.addEventListener("click", this.eventListener);
 
-                    this.deleteEventListener = () => this.sweetAlert;
+                    this.deleteEventListener = () => {
+                        this.sweetAlert(params.data.id);
+                    };
                     this.eDelete.addEventListener("click", this.deleteEventListener);
                 }
 
@@ -53,31 +55,47 @@
                     return this.eGui;
                 }
 
-                sweetAlert() {
-                    swal({
+                sweetAlert = (id) => {
+
+                    Swal.fire({
                         title: 'Are you sure?',
-                        text: "It will permanently deleted !",
-                        type: 'warning',
+                        icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then(function () {
-                        swal(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        );
-                    })
+                        confirmButtonColor: '#ce1212',
+                        cancelButtonColor: '#007580',
+                        confirmButtonText: 'Delete'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // $.post("/stock/in/" + id, function (data) {
+                            $.ajax({
+                                url: '/stock/in/' + id,
+                                type: 'post',
+                                data: {_method: 'delete'},
+                                success: function (data,) {
+                                    Swal.fire({
+                                        title: data.message,
+                                        icon: "success",
+                                        timer: 500,
+                                        button: false,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                    }).then(function () {
+                                        window.location = '/stock/in'
+                                    })
+                                }
+                            })
+                        } else {
+                            Swal.fire({
+                                title: "Delete Canceled!",
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                icon: "success",
+                                timer: 1500,
+                            });
+                        }
+                    });
                 }
             }
-
-            //
-            // BtnCellRenderer.prototype.btnClickedHandler = function () {
-            //     this.params.clicked(this.params.value);
-            //
-            // };
-
             const gridOptions = {
                 columnDefs: [
                     {headerName: "Id", field: "id", sortable: true, maxWidth: 80},
@@ -99,7 +117,6 @@
                     btnCellRenderer: BtnCellRenderer,
                 }
             };
-
             document.addEventListener('DOMContentLoaded', function () {
                 const gridDiv = document.querySelector('#myGrid');
                 new agGrid.Grid(gridDiv, gridOptions);
@@ -109,44 +126,6 @@
             });
 
         </script>
-{#        <script>#}
-{#            $(document).ready(function () {#}
-{#                $('.delete').on('click', function confirmDelete(e) {#}
-{#                    e.preventDefault();#}
-{#                    var id = $(this).attr('id');#}
-{#                    console.log(id);#}
-{#                    //alert(clickedID);#}
-{#                    Swal.fire({#}
-{#                        title: 'Are you sure?',#}
-{#                        icon: 'warning',#}
-{#                        showCancelButton: true,#}
-{#                        confirmButtonColor: '#d33',#}
-{#                        cancelButtonColor: '#3085d6',#}
-{#                        confirmButtonText: 'Delete'#}
-{#                    }).then((result) => {#}
-{#                        if (result.isConfirmed) {#}
-{#                            $.post("/product/type/delete/"+id, function (data) {#}
-{#                                Swal.fire( {#}
-{#                                    title:data.message,#}
-{#                                    icon: "success",#}
-{#                                    timer:1000,#}
-{#                                    button:false,#}
-{#                                    position: 'top-end',#}
-{#                                    showConfirmButton: false,#}
-{#                                }).then(function (){ window.location='/product/type/list'})#}
-{#                            })#}
-{#                        } else {#}
-{#                            Swal.fire({title:"Your file is safe!",#}
-{#                                position: 'top-end',#}
-{#                                showConfirmButton: false,#}
-{#                                icon: "success",#}
-{#                                timer:1500,#}
-{#                            });#}
-{#                        }#}
-{#                    });#}
-{#                });#}
-{#            });#}
-{#        </script>#}
 
     {% endblock %}
 

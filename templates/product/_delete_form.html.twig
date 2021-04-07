@@ -3,31 +3,3 @@
     <input type="hidden" name="_token"  value="{{ csrf_token('delete' ~ product.id) }}">
     <button class="btn btn-danger" id="deleteButton">Delete</button>
 </form>
-
-<script>
-    $(document).ready(function() {
-
-        $('.deleteButton').click(function (e) {
-            e.preventDefault();
-
-            id = $(this).attr('id');
-
-            $.ajax({
-
-                url: '/product/'+id,
-                data: {'id': id},
-                method: 'post',
-                success: function (data, response) {
-
-                    if (response == 'hello') {
-                        alert('Success');
-                    }
-                },
-                error: function () {
-
-                },
-            });
-
-        });
-    })
-</script>

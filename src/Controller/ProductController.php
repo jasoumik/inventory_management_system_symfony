@@ -20,6 +20,7 @@ class ProductController extends AbstractController
             'products' => $productRepository->findAll(),
         ]);
     }
+
     #[Route('/aggrid', name: 'product_grid', methods: ['GET'])]
     public function grid(ProductRepository $productRepository): Response
     {
@@ -83,14 +84,14 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'product_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Product $product): Response
+    public function delete(Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($product);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('product_index');
+//        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($product);
+        $entityManager->flush();
+//        }
+        return $this->json(['status' => 'success', 'message' => 'Data deleted successfully']);
+//        return $this->redirectToRoute('product_index');
     }
 }

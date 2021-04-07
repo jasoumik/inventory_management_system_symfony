@@ -27,25 +27,23 @@ class StockOutType extends AbstractType
                         new NotBlank(),
                     ],
                     'attr' => ['class' => 'select'],
-
                 ])
                 ->add('date',
                     DateType::class,
                     [
                         'widget' => 'single_text',
-                        //'format' => 'dd-mm-yyyy',
-//                        'html5' => true,
+                        'format' => 'dd/MM/yyyy',
+                        'html5' => false,
                         'required'=>false,
                         'constraints' => [
                             new NotBlank(),
                         ],
-//                        'attr' => [
-//                            'class' => 'input-datepicker',
-//                            'placeholder' => 'Select Date',
-//                            'style' => 'width:100%',
-//                            'autocomplete' => 'off',
-//                            'readonly' => true,
-//                        ],
+                        'attr' => [
+                            'class' => 'input-datepicker',
+                            'placeholder' => 'Select Date',
+                            'autocomplete' => 'off',
+                            'readonly' => true,
+                        ]
                     ])
                 ->add('quantity', NumberType::class,
                     [

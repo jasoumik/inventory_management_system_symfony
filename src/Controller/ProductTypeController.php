@@ -6,12 +6,11 @@ use App\Entity\Product;
 use App\Entity\ProductType;
 use App\Form\ProductTypeType;
 use App\Repository\ProductTypeRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/product/type')]
 class ProductTypeController extends AbstractController
@@ -36,13 +35,51 @@ class ProductTypeController extends AbstractController
             $entityManager->persist($productType);
             $entityManager->flush();
 
+            if ($request->isXMLHttpRequest()) {
+                return new JsonResponse(['status'=>'success','message'=>'data has been saved Successfully']);
+            }
+
             return $this->redirectToRoute('product_type_index');
         }
+
+
+//        if($request->isXMLHttpRequest() && !$form->isValid()){
+//            $formErrors = $this->getFormErrors($form);
+//            return new JsonResponse(
+//                [
+//                    'status' => 400,
+//                    'errors' => $formErrors,
+//                    'form' => $form->getName(),
+//                ],
+//                400
+//            );
+//        }
 
         return $this->render('product_type/new.html.twig', [
             'product_type' => $productType,
             'form' => $form->createView(),
         ]);
+    }
+
+    private function getFormErrors(FormInterface $form)
+    {
+        $errors = [];
+
+        // Global
+        foreach ($form->getErrors() as $error) {
+            $errors[$form->getName()][] = $error->getMessage();
+        }
+
+        // Fields
+        foreach ($form as $child/* @var Form $child */) {
+            if (!$child->isValid()) {
+                foreach ($child->getErrors() as $error) {
+                    $errors[$child->getName()][] = $error->getMessage();
+                }
+            }
+        }
+
+        return $errors;
     }
 
     #[Route('/{id}', name: 'product_type_show', methods: ['GET'])]
@@ -76,12 +113,32 @@ class ProductTypeController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('delete'.$productType->getId(), $request->request->get('_token'))) {
-             $this->getDoctrine()->getRepository(Product::class)->deleteAllProducts($productType->getId());
-             $em->remove($productType);
-             $em->flush();
+            $this->getDoctrine()->getRepository(Product::class)->deleteAllProducts($productType->getId());
+            $em->remove($productType);
+            $em->flush();
 
         }
 
         return $this->redirectToRoute('product_type_index');
     }
+    #[Route('/delete/{id}', name: 'delete_product_type_ajax', methods: ['POST'])]
+    public function deleteProductType( ProductType $productType): Response
+    {
+        //if ($this->isCsrfTokenValid('delete' . $productType->getId(), $request->request->get('_token'))) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($productType);
+        $entityManager->flush();
+        //}
+
+        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+//                return $this->redirectToRoute('product_type_index');
+
+    }
+
+
+
+
+
+
+
 }

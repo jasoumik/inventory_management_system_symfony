@@ -29,7 +29,7 @@ class StockInController extends AbstractController
         foreach ($newProduct as $row) {
             $product [] = ['id' => $row->getId(),
                 'name' => $row->getProduct()->getName(),
-                'date' => $row->getDate()->format('d-m-Y'),
+                'date' => $row->getDate()->format("F j, Y"),
                 'quantity' => $row->getQuantity()];
         }
         return $this->json($product);
@@ -83,16 +83,15 @@ class StockInController extends AbstractController
     }
 
     #[Route('/{id}', name: 'stock_in_delete', methods: ['DELETE'])]
-    public function delete(Request $request, StockIn $stockIn): Response
+    public function delete( StockIn $stockIn): Response
     {
-        dump($stockIn);
-        if ($this->isCsrfTokenValid('delete' . $stockIn->getId(), $request->request->get('_token'))) {
+//        if ($this->isCsrfTokenValid('delete' . $stockIn->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($stockIn);
             $entityManager->flush();
-
-        }
-        return $this->redirectToRoute('stock_in_index');
+//        }
+        return $this->json(['status' => 'success', 'message' => 'Data deleted successfully']);
+//        return $this->redirectToRoute('stock_in_index');
     }
 
 

@@ -19,23 +19,34 @@ class StockInType extends AbstractType
     {
         $builder
             ->add('product', EntityType::class, [
-                'class'=>Product::class,
+                'class' => Product::class,
                 'placeholder' => 'Select The Product First',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
-            ->add('date', DateType::class, [
-                'widget' => 'single_text',
-            ])
-            ->add('quantity', NumberType::class)
-        ;
+            ->add('date',
+                DateType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
+                    'html5' => false,
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'input-datepicker',
+                        'placeholder' => 'Select Date',
+                        'autocomplete' => 'off',
+                        'readonly' => true,
+                    ],
+                ])
+            ->add('quantity', NumberType::class);
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => StockIn::class,
-            'attr' => ['class' => 'form-control mt-2 bg-light',  'style' => 'width:75%'],
+            'attr' => ['class' => 'form-control mt-2 bg-light', 'style' => 'width:75%'],
         ]);
     }
 }
