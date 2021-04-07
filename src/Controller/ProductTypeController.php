@@ -130,7 +130,7 @@ class ProductTypeController extends AbstractController
             $entityManager->flush();
         //}
 
-        return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
+       return $this->json(['status' => 'success', 'message' => 'Data has been deleted successfully']);
 //                return $this->redirectToRoute('product_type_index');
 
     }

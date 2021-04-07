@@ -8,7 +8,7 @@ use Xiidea\EasyAuditBundle\Annotation\SubscribeDoctrineEvents;
 
 /**
  * @ORM\Entity(repositoryClass=ProductTypeRepository::class)
- * @SubscribeDoctrineEvents(events = "created,deleted")
+ * @SubscribeDoctrineEvents(events = "created,deleted,updated")
  */
 class ProductType
 {
