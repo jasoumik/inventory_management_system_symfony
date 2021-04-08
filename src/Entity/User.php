@@ -12,7 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-
+    const ROLE = ['ROLE_USER'];
+    const NAME = "SOUMIK";
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -28,7 +29,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ROLE_USER'];
+    private $roles = self::ROLE;
 
     /**
      * @var string The hashed password
@@ -39,7 +40,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name;
+    private $name=self::NAME;
 
 
     public function getId(): ?int

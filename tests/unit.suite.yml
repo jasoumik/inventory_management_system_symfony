@@ -1,0 +1,20 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests.
+
+actor: UnitTester
+modules:
+    enabled:
+        - Asserts
+        - \App\Tests\_support\Helper\Unit
+        - Db:
+              dsn: 'pgsql:host=localhost;dbname=inventory_system'
+              user: 'postgres'
+              password: 'root'
+        - Symfony:
+            app_path: 'src'
+            environment: 'test'
+        - Doctrine2:
+            depends: Symfony
+            cleanup: true
+

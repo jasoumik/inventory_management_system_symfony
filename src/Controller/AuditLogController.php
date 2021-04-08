@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
   *
-  * @IsGranted("ROLE_USER")
+  * @IsGranted("ROLE_ADMIN")
   */
-class LoggerController extends AbstractController
+class AuditLogController extends AbstractController
 {
     #[Route('/logger', name: 'logger')]
     public function index(): Response
