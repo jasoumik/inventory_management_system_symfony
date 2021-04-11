@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Report{% endblock %}
 {% block body %}
-    {{ include('navbar.html.twig') }}
+
     <style>
         .example-wrapper {
             margin: 1em auto;
@@ -32,22 +32,10 @@
             </div>
         </div>
     </main>
-
-
-
     </body>
 {% endblock %}
+
   {% block javascripts %}
       {{ parent() }}
-      <script>
-          $(document).ready(function () {
-              $('.input-datepicker').datepicker({
-                  clearBtn: true,
-                  todayHighlight: true,
-                  toggleActive: true,
-                  autoclose: true,
-                  format:'dd/MM/yyyy'
-              });
-          });
-      </script>
+      <script src="{{ asset('tools/datepicker/custom-datepicker.js') }}"></script>
   {% endblock %}

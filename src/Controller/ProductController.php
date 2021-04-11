@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,7 +77,6 @@ class ProductController extends AbstractController
 
             return $this->redirectToRoute('product_index');
         }
-
         return $this->render('product/edit.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
@@ -86,12 +86,16 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'product_delete', methods: ['DELETE'])]
     public function delete(Product $product): Response
     {
-//        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($product);
-        $entityManager->flush();
-//        }
-        return $this->json(['status' => 'success', 'message' => 'Data deleted successfully']);
-//        return $this->redirectToRoute('product_index');
+        try {
+            $entityManager->remove($product);
+            $entityManager->flush();
+
+            return $this->json(['status' => 'success', 'message' => 'Data deleted successfully']);
+        } catch (\Exception $e) {
+
+            return $this->json(['status' => 'error', 'message' => 'Product has dependency']);
+        }
+
     }
 }
