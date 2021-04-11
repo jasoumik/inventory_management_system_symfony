@@ -11,11 +11,3 @@ extensions:
         - Codeception\Extension\RunFailed
 params:
     - .env
-coverage:
-    enabled: true
-    include:
-        - src/*
-    exclude:
-        - src/Kernel.php
-        - src/Maker/*
-        - src/Command/^(Encrypt)Command.php

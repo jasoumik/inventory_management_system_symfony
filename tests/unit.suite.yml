@@ -6,15 +6,10 @@ actor: UnitTester
 modules:
     enabled:
         - Asserts
-        - \App\Tests\_support\Helper\Unit
-        - Db:
-              dsn: 'pgsql:host=localhost;dbname=inventory_system'
-              user: 'postgres'
-              password: 'root'
         - Symfony:
             app_path: 'src'
             environment: 'test'
+            debug: true
         - Doctrine2:
-            depends: Symfony
-            cleanup: true
-
+                depends: Symfony
+        - \App\Tests\Helper\Unit

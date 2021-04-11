@@ -7,12 +7,6 @@
 actor: AcceptanceTester
 modules:
     enabled:
-#        - PhpBrowser:
-#            url: http://localhost:8000
-#        - \App\Tests\_support\Helper\Acceptance
-        - WebDriver:
-              url: '%SITE_URL%'
-              browser: chrome
-              host: '%SELENIUM_HOST%'
-        - \App\Tests\_support\Helper\Acceptance
-
+        - PhpBrowser:
+            url: http://localhost:8000
+        - \App\Tests\Helper\Acceptance

@@ -53,6 +53,9 @@
     "codeception/module-webdriver": {
         "version": "1.2.0"
     },
+    "codeception/module-yii2": {
+        "version": "1.1.2"
+    },
     "codeception/phpunit-wrapper": {
         "version": "9.0.6"
     },
@@ -159,6 +162,9 @@
     "guzzlehttp/psr7": {
         "version": "1.8.1"
     },
+    "helmich/phpunit-json-assert": {
+        "version": "v3.4.2"
+    },
     "illuminate/collections": {
         "version": "v8.33.1"
     },
@@ -176,6 +182,9 @@
     },
     "illuminate/support": {
         "version": "v8.33.1"
+    },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
     },
     "laminas/laminas-code": {
         "version": "4.0.0"
@@ -206,9 +215,6 @@
     },
     "php": {
         "version": "7.4"
-    },
-    "php-webdriver/webdriver": {
-        "version": "1.10.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -337,6 +343,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "softcreatr/jsonpath": {
+        "version": "0.7.3"
     },
     "symfony/asset": {
         "version": "v5.2.4"
