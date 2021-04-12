@@ -56,6 +56,7 @@ class ContainBalanceValidator extends ConstraintValidator
 
             return false;
         }
+        return true;
 
     }
 

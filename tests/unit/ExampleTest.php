@@ -1,8 +1,24 @@
 <?php
 namespace App\Tests;
 
+
+use App\Component\Validator\Constraints\ContainBalance;
+use App\Component\Validator\Constraints\ContainBalanceValidator;
 use App\Entity\User;
+
+use App\Repository\StockInRepository;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Routing;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
+use Symfony\Component\Routing\RequestContext;
+use App\Simplex\Framework;
+use Symfony\Component\Validator\Constraint;
 
 class ExampleTest extends \Codeception\Test\Unit
 {
@@ -10,7 +26,7 @@ class ExampleTest extends \Codeception\Test\Unit
      * @var \App\Tests\UnitTester
      */
     protected $tester;
-    
+
     protected function _before()
     {
     }
@@ -49,4 +65,6 @@ class ExampleTest extends \Codeception\Test\Unit
        // $this->tester->seeInRepository(User::class, ['name' => 'bill']);
      //   $this->tester->dontSeeInRepository(User::class, ['name' => 'miles']);
     }
+
+// -
 }

@@ -1,4 +1,4 @@
-import $ from 'jquery';
+
 $(document).ready(function () {
     $('.input-datepicker').datepicker({
         clearBtn: true,
