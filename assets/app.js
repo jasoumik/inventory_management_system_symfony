@@ -26,19 +26,20 @@ import 'bootstrap';
 import 'select2';
 import "ag-grid";
 
-
-import 'bootstrap-datepicker';
-
-import './js/CustomDate';
-
-$('#b').on('click',function ()
-{
-    swal({
-        title: "Created Successfully!",
-        text: "",
-        icon: "success",
-    })
-})
+import Chart from 'chart.js';
+import './js/Chartjs';
+// import 'bootstrap-datepicker';
+//
+// import './js/CustomDate';
+//
+// $('#b').on('click',function ()
+// {
+//     swal({
+//         title: "Created Successfully!",
+//         text: "",
+//         icon: "success",
+//     })
+// })
 
 
 // create global $ and jQuery variables

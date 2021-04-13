@@ -31,6 +31,9 @@ import 'bootstrap-datepicker';
 
 import './module/product-type/index';
 import './js/CustomDate';
+import './ts/Chartjs';
+
+import * as $ from 'jquery';
 
 // $('#b').on('click',function ()
 // {
