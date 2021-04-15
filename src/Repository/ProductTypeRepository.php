@@ -46,4 +46,13 @@ class ProductTypeRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function countTypes()
+    {
+
+        return $this->createQueryBuilder('c')
+            ->select('count(c.type)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

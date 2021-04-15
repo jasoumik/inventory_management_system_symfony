@@ -27,7 +27,7 @@ import 'select2';
 import "ag-grid";
 
 import Chart from 'chart.js';
-import './js/Chartjs';
+// import './js/Chartjs';
 // import 'bootstrap-datepicker';
 //
 // import './js/CustomDate';

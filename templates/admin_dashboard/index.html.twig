@@ -12,73 +12,101 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script>
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>#}
-{#    <script>#}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        var charts = {
+            init: function () {
+                // -- Set new default font family and font color to mimic Bootstrap's default styling
 
 
-{#        let myChart = document.getElementById('myChart').getContext('2d');#}
+                this.ajaxGetPostMonthlyData();
 
-{#        // Global Options#}
-{#        Chart.defaults.global.defaultFontFamily = 'Latin';#}
-{#        Chart.defaults.global.defaultFontSize = 18;#}
-{#        Chart.defaults.global.defaultFontColor = 'black';#}
+            },
+            ajaxGetPostMonthlyData: function () {
+                var urlPath = '/list';
+                var request = $.ajax({
+                    method: 'GET',
+                    url: urlPath
+                });
 
-{#        let massPopChart = new Chart(myChart, {#}
-{#            type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea#}
-{#            data:{#}
-{#                labels:['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],#}
-{#                datasets:[{#}
-{#                    label:'Population',#}
-{#                    data:[#}
-{#                        617594,#}
-{#                        181045,#}
-{#                        153060,#}
-{#                        106519,#}
-{#                        105162,#}
-{#                        95072#}
-{#                    ],#}
-{#                    //backgroundColor:'green',#}
-{#                    backgroundColor:[#}
-{#                        'red',#}
-{#                        'rgba(54, 162, 235, 0.6)',#}
-{#                        'rgba(255, 206, 86, 0.6)',#}
-{#                        'rgba(75, 192, 192, 0.6)',#}
-{#                        'rgba(153, 102, 255, 0.6)',#}
-{#                        'rgba(255, 159, 64, 0.6)',#}
-{#                        'rgba(255, 99, 132, 0.6)'#}
-{#                    ],#}
-{#                    borderWidth:1,#}
-{#                    borderColor:'#777',#}
-{#                    hoverBorderWidth:3,#}
-{#                    hoverBorderColor:'#000'#}
-{#                }]#}
-{#            },#}
-{#            options:{#}
-{#                title:{#}
-{#                    display:true,#}
-{#                    text:'Largest Cities In Massachusetts',#}
-{#                    fontSize:25#}
-{#                },#}
-{#                legend:{#}
-{#                    display:true,#}
-{#                    position:'right',#}
-{#                    labels:{#}
-{#                        fontColor:'#000'#}
-{#                    }#}
-{#                },#}
-{#                layout:{#}
-{#                    padding:{#}
-{#                        left:50,#}
-{#                        right:0,#}
-{#                        bottom:0,#}
-{#                        top:0#}
-{#                    }#}
-{#                },#}
-{#                tooltips:{#}
-{#                    enabled:true#}
-{#                }#}
-{#            }#}
-{#        });#}
-{#    </script>#}
+                request.done(function (response) {
+
+                    console.log(response.stock_date[0].date);
+                    charts.createCompletedJobsChart(response);
+                });
+            },
+
+            /**
+             * Created the Completed Jobs Chart
+             */
+            createCompletedJobsChart: function (response) {
+                var ctx = document.getElementById('myChart').getContext('2d');
+                // for(var i=0; i<response.stock_date.length; i++){
+                //  const my= response.stock_date[i].date;
+                // }
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels:[response.stock_date[0].date,response.stock_date[1].date,response.stock_date[2].date,response.stock_date[3].date],
+                        datasets: [{
+                            label:'Hello',
+                            data: [response.stock_qty[0].quantity,response.stock_qty[1].quantity,response.stock_qty[2].quantity,response.stock_qty[3].quantity],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                time: {
+                                    unit: 'date'
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 7
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: response.max, // The response got from the ajax request containing max limit for y axis
+                                    maxTicksLimit: 5
+                                },
+                                gridLines: {
+                                    color: "rgba(0, 0, 0, .125)",
+                                }
+                            }],
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+
+                });
+            }
+        }
+            charts.init();
+
+        });
+
+    </script>
 {% endblock %}
 

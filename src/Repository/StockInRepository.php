@@ -95,4 +95,33 @@ from product
             )->fetchOne();
     }
 
+    public function stockInDateWise()
+    {
+        return $this->createQueryBuilder('si')
+            ->select('product.id','si.date','si.quantity')
+            ->leftJoin('si.product', 'product')
+            ->groupBy('product.id','si.date','si.quantity')
+            ->getQuery()
+            ->getResult();
+    }
+    public function stockInDate()
+    {
+        return $this->createQueryBuilder('si')
+            ->select('si.date')
+            ->leftJoin('si.product', 'product')
+            ->groupBy('si.date')
+            ->orderBy('si.date')
+            ->getQuery()
+            ->getArrayResult();
+    }
+    public function stockInQuantity()
+    {
+        return $this->createQueryBuilder('si')
+            ->select('si.quantity')
+            ->leftJoin('si.product', 'product')
+
+            ->orderBy('si.date')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

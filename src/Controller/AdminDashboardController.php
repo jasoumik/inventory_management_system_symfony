@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\ProductType;
+use App\Entity\StockIn;
 use App\Entity\User;
 use App\Form\DashboardType;
+use App\Repository\ProductTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,5 +47,35 @@ class AdminDashboardController extends AbstractController
 
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route('/list', name: 'list')]
+    public function chart():Response
+    {
+        $list=$this->getDoctrine()->getRepository(ProductType::class)->countTypes();
+        $stockIn=$this->getDoctrine()->getRepository(StockIn::class)->stockInDateWise();
+        $stockInDate=$this->getDoctrine()->getRepository(StockIn::class)->stockInDate();
+        $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->stockInQuantity();
+                return $this->json( [
+                    'list'=>$list,
+                    'stock'=>$stockIn,
+                    'stock_date'=>$stockInDate,
+                    'stock_qty'=>$stockInQuantity
+                ]);
+//        $list = [];
+//        $stockIn = $this->getDoctrine()->getRepository(StockIn::class)->findAll();
+//        foreach ($stockIn as $row) {
+//            $date=$row->getDate();
+//            $list  = [
+//                'quantity' => $row->getQuantity(),
+//
+//                'date'=>$date->format("F j, Y"),
+//            ];
+//
+//        }
+//        return $this->json([
+//
+//            'balance' => $list
+//        ]);
     }
 }
