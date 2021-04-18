@@ -52,30 +52,20 @@ class AdminDashboardController extends AbstractController
     #[Route('/list', name: 'list')]
     public function chart():Response
     {
-        $list=$this->getDoctrine()->getRepository(ProductType::class)->countTypes();
-        $stockIn=$this->getDoctrine()->getRepository(StockIn::class)->stockInDateWise();
+//        $list=$this->getDoctrine()->getRepository(ProductType::class)->countTypes();
+//        $stockIn=$this->getDoctrine()->getRepository(StockIn::class)->stockInDateWise();
         $stockInDate=$this->getDoctrine()->getRepository(StockIn::class)->stockInDate();
         $stockInQuantity=$this->getDoctrine()->getRepository(StockIn::class)->stockInQuantity();
+        $highestStockIn=$this->getDoctrine()->getRepository(StockIn::class)->highest5Quantity();
+        $lowestStockIn=$this->getDoctrine()->getRepository(StockIn::class)->lowest5Quantity();
                 return $this->json( [
-                    'list'=>$list,
-                    'stock'=>$stockIn,
+//                    'list'=>$list,
+//                    'stock'=>$stockIn,
                     'stock_date'=>$stockInDate,
-                    'stock_qty'=>$stockInQuantity
+                    'stock_qty'=>$stockInQuantity,
+                    'high'=>$highestStockIn,
+                    'low'=>$lowestStockIn
                 ]);
-//        $list = [];
-//        $stockIn = $this->getDoctrine()->getRepository(StockIn::class)->findAll();
-//        foreach ($stockIn as $row) {
-//            $date=$row->getDate();
-//            $list  = [
-//                'quantity' => $row->getQuantity(),
-//
-//                'date'=>$date->format("F j, Y"),
-//            ];
-//
-//        }
-//        return $this->json([
-//
-//            'balance' => $list
-//        ]);
+
     }
 }

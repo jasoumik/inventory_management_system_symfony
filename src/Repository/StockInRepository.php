@@ -106,6 +106,7 @@ from product
     }
     public function stockInDate()
     {
+
         return $this->createQueryBuilder('si')
             ->select('si.date')
             ->leftJoin('si.product', 'product')
@@ -124,4 +125,19 @@ from product
             ->getQuery()
             ->getArrayResult();
     }
+    public function highest5Quantity()
+    {
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery('select p.name,quantity from stock_in s  
+    inner join product p on p.id=s.product_id where s.product_id=p.id
+    order by quantity desc limit 5')->fetchAllAssociative();
+    }
+    public function lowest5Quantity()
+    {
+        return $this->getEntityManager()->getConnection()
+            ->executeQuery('select p.name,quantity from stock_in s  
+    inner join product p on p.id=s.product_id where s.product_id=p.id
+    order by quantity limit 5')->fetchAllAssociative();
+    }
+
 }

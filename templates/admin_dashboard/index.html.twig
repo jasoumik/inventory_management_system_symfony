@@ -7,6 +7,10 @@
        <a href="/admin/dashboard/register">New Registration </a>
     <div>
         <canvas id="myChart"></canvas>
+          <br> <br> <br>
+        <canvas id="myChart1"></canvas>
+        <br> <br> <br>
+        <canvas id="myChart2"></canvas>
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -20,10 +24,10 @@
                 // -- Set new default font family and font color to mimic Bootstrap's default styling
 
 
-                this.ajaxGetPostMonthlyData();
+                this.ajaxGetData();
 
             },
-            ajaxGetPostMonthlyData: function () {
+            ajaxGetData: function () {
                 var urlPath = '/list';
                 var request = $.ajax({
                     method: 'GET',
@@ -50,7 +54,7 @@
                     data: {
                         labels:[response.stock_date[0].date,response.stock_date[1].date,response.stock_date[2].date,response.stock_date[3].date],
                         datasets: [{
-                            label:'Hello',
+                            label:'Date-Wise Stock In',
                             data: [response.stock_qty[0].quantity,response.stock_qty[1].quantity,response.stock_qty[2].quantity,response.stock_qty[3].quantity],
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
@@ -103,6 +107,196 @@
                 });
             }
         }
+            charts.init();
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var charts = {
+                init: function () {
+                    // -- Set new default font family and font color to mimic Bootstrap's default styling
+
+
+                    this.ajaxGetData();
+
+                },
+                ajaxGetData: function () {
+                    var urlPath = '/list';
+                    var request = $.ajax({
+                        method: 'GET',
+                        url: urlPath
+                    });
+
+                    request.done(function (response) {
+
+                        console.log(response.high[0].quantity);
+                        charts.createCompletedJobsChart(response);
+                    });
+                },
+
+                /**
+                 * Created the Completed Jobs Chart
+                 */
+                createCompletedJobsChart: function (response) {
+                    var ctx = document.getElementById('myChart1').getContext('2d');
+                    // for(var i=0; i<response.stock_date.length; i++){
+                    //  const my= response.stock_date[i].date;
+                    // }
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels:[response.high[0].name,response.high[1].name,response.high[2].name,response.high[3].name,response.high[4].name],
+                            datasets: [{
+                                label:'Highest 5 Stock-Ins',
+                                data: [response.high[0].quantity,response.high[1].quantity,response.high[2].quantity,response.high[3].quantity,response.high[4].quantity],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    time: {
+                                        unit: 'date'
+                                    },
+                                    gridLines: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        maxTicksLimit: 7
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                        max: response.max, // The response got from the ajax request containing max limit for y axis
+                                        maxTicksLimit: 5
+                                    },
+                                    gridLines: {
+                                        color: "rgba(0, 0, 0, .125)",
+                                    }
+                                }],
+                            },
+                            legend: {
+                                display: false
+                            }
+                        }
+
+                    });
+                }
+            }
+            charts.init();
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var charts = {
+                init: function () {
+                    // -- Set new default font family and font color to mimic Bootstrap's default styling
+
+
+                    this.ajaxGetData();
+
+                },
+                ajaxGetData: function () {
+                    var urlPath = '/list';
+                    var request = $.ajax({
+                        method: 'GET',
+                        url: urlPath
+                    });
+
+                    request.done(function (response) {
+
+                        console.log(response.high[0].quantity);
+                        charts.createCompletedJobsChart(response);
+                    });
+                },
+
+                /**
+                 * Created the Completed Jobs Chart
+                 */
+                createCompletedJobsChart: function (response) {
+                    var ctx = document.getElementById('myChart2').getContext('2d');
+                    // for(var i=0; i<response.stock_date.length; i++){
+                    //  const my= response.stock_date[i].date;
+                    // }
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels:[response.low[0].name,response.low[1].name,response.low[2].name,response.low[3].name,response.low[4].name],
+                            datasets: [{
+                                label:'Lowest 5 Stock-Ins',
+                                data: [response.low[0].quantity,response.low[1].quantity,response.low[2].quantity,response.low[3].quantity,response.low[4].quantity],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                    time: {
+                                        unit: 'date'
+                                    },
+                                    gridLines: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        maxTicksLimit: 7
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                        max: response.max, // The response got from the ajax request containing max limit for y axis
+                                        maxTicksLimit: 5
+                                    },
+                                    gridLines: {
+                                        color: "rgba(0, 0, 0, .125)",
+                                    }
+                                }],
+                            },
+                            legend: {
+                                display: false
+                            }
+                        }
+
+                    });
+                }
+            }
             charts.init();
 
         });
