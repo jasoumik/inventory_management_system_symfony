@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\StockIn;
+use App\Entity\User;
 use App\Event\StockInMailEvent;
 use App\Form\StockInType;
 use App\Repository\StockInRepository;
@@ -11,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/stock/in')]
 class StockInController extends AbstractController
@@ -41,6 +43,8 @@ class StockInController extends AbstractController
     public function new(Request $request,EventDispatcherInterface $dispatcher): Response
     {
         $stockIn = new StockIn();
+
+         $user=new User();
         $form = $this->createForm(StockInType::class, $stockIn);
         $form->handleRequest($request);
 
@@ -48,7 +52,7 @@ class StockInController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($stockIn);
             $entityManager->flush();
-            $event=new StockInMailEvent($stockIn);
+            $event=new StockInMailEvent($stockIn,$user);
             $dispatcher->dispatch($event,StockInMailEvent::NAME);
 
            // return $this->redirectToRoute('stock_in_index');
