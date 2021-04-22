@@ -1,5 +1,14 @@
+
+<button type="button" class="btn btn-info" onclick="add_row()">+</button>
 {{ form_start(form) }}
+<div class="custom-form">
+
     {{ form_widget(form) }}
+</div>
+<div class="custom-form1">
+
+
+</div>
     <button class="btn btn-success"id="r">{{ button_label|default('Save') }}</button>
 
 {{ form_end(form) }}

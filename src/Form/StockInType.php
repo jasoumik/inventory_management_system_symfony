@@ -24,18 +24,23 @@ class StockInType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                 ],
+                'attr' => ['class' => 'form-group  mb-2'],
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
+                'attr' => ['class' => 'form-group mb-2'],
             ])
-            ->add('quantity', NumberType::class)
+            ->add('quantity', NumberType::class,
+            [
+                'attr' => ['class' => 'form-group mb-2'],
+            ])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => StockIn::class,
-            'attr' => ['class' => 'bg-dark',  'style' => 'width:75%'],
+            'attr' => ['class' => 'bg-dark form-inline',  'style' => 'width:75%'],
         ]);
     }
 }

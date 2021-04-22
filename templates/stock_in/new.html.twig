@@ -10,3 +10,36 @@
 
     <a href="{{ path('stock_in_index') }}">Back to list</a>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+
+
+
+            function add_row() {
+
+                let row_track_id = $('.custom-form').data('row');
+                if (row_track_id == null) {
+                    row_track_id = 1;
+                } else {
+                    row_track_id = row_track_id + 1;
+                }
+
+                $(".custom-form1").append("<tr data-row='" + row_track_id + "' id='row_add" + row_track_id + "'>" +
+                    "<td>"+ $('.custom-form').html()+"<button type='button' class='btn btn-danger btn-sm btn-icon-text' onclick=delete_row('row_add" + row_track_id + "')><i class='ti-minus'></i></button></td></tr>");
+
+            }
+
+            function delete_row(rowno) {
+                $('#' + rowno).remove();
+            }
+
+
+
+
+    </script>
+{% endblock %}
+
